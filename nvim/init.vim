@@ -3,6 +3,10 @@
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.vim/plugged')
 
+if exists('g:vscode')
+    " VSCode extension
+else
+    " ordinary neovim
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'scrooloose/nerdcommenter'
@@ -14,6 +18,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'ctrlpvim/ctrlp.vim'
 " colorschemes
 Plug 'joshdick/onedark.vim'
+endif
 
 call plug#end()
 
@@ -64,6 +69,14 @@ noremap <Leader>Y "+y
 noremap <Leader>P "+p
 
 inoremap jk <Esc>
+
+xnoremap B ^
+xnoremap E $
+xnoremap J 5j
+xnoremap K 5k
+xnoremap <Leader>j J
+xnoremap <Leader>/ :noh<CR>
+xnoremap <SPACE> <Nop>
 
 " Set clipboard to systems'
 set clipboard=unnamedplus
