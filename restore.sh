@@ -1,6 +1,9 @@
 # Restore Neovim
 cp -R ./nvim/* ~/.config/nvim
 
+# Restore LunvarVim
+cp ./lvim/config.lua ~/.config/lvim
+
 # Restore zsh
 cp ./zsh/.p10k.zsh ~/.p10k.zsh
 cp ./zsh/.zshrc ~/.zshrc
