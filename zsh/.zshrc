@@ -76,7 +76,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Add wisely, as too many plugins slow down shell startup.
 export NVM_COMPLETION=true
 
-plugins=(zsh-nvm git vscode zsh-autosuggestions fast-syntax-highlighting z zsh-completions vi-mode)
+plugins=(zsh-nvm git vscode zsh-autosuggestions fast-syntax-highlighting z zsh-completions vi-mode kubectl docker-compose)
 
 source $ZSH/oh-my-zsh.sh
 # User configuration
@@ -126,5 +126,6 @@ fpath=($fpath ~/.zsh/completion)
 eval "$(pyenv init --path)"
 
 if type nvim > /dev/null 2>&1; then
-  alias vim='nvim'
+  alias vim='lvim'
 fi
+

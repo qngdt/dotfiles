@@ -67,7 +67,7 @@ lvim.keys.visual_mode["<Leader>/"] = ":noh<CR>"
 
 -- Telescope
 lvim.builtin.telescope.defaults = {
-  file_ignore_patterns = {"node_modules", "dist"}
+  file_ignore_patterns = {"node_modules", "dist", "__pycache__"}
 }
 
 -- Use which-key to add extra bindings with the leader-key prefix
@@ -98,11 +98,11 @@ lvim.builtin.treesitter.highlight.enabled = true
 -- you can set a custom on_attach function that will be used for all the language servers
 -- See <https://github.com/neovim/nvim-lspconfig#keybindings-and-completion>
 -- lvim.lsp.on_attach_callback = function(client, bufnr)
---   local function buf_set_option(...)
---     vim.api.nvim_buf_set_option(bufnr, ...)
---   end
---   --Enable completion triggered by <c-x><c-o>
---   buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
+  -- local function buf_set_option(...)
+  --   vim.api.nvim_buf_set_option(bufnr, ...)
+  -- end
+  -- --Enable completion triggered by <c-x><c-o>
+  -- buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
 -- end
 -- you can overwrite the null_ls setup table (useful for setting the root_dir function)
 -- lvim.lsp.null_ls.setup = {
@@ -137,7 +137,7 @@ lvim.lang.python.formatters = {
 lvim.plugins = {
     {"navarasu/onedark.nvim"},
     {"Th3Whit3Wolf/one-nvim"},
-
+    {"tpope/vim-surround"}
 }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
