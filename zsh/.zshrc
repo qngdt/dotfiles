@@ -110,14 +110,8 @@ export LC_CTYPE="en_US.UTF-8"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
 
-[[ -s "/Users/homuru/.gvm/scripts/gvm" ]] && source "/Users/homuru/.gvm/scripts/gvm"
-source "$HOME/.cargo/env"
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-export GOPATH=$HOME/go
-export GOBIN=$GOPATH/bin
-export PATH=$PATH:$GOPATH/bin
-export PATH=$PATH:$GOBIN
 export PATH=$PATH:$HOME/.local/bin
 
 autoload -U +X bashcompinit && bashcompinit
