@@ -38,8 +38,10 @@ lvim.keys.normal_mode = {
   ["<Leader>j"] = "J",
   ["<Leader>/"] = ":noh<CR>",
   -- Editor
-  ["<C-h>"] = ":NvimTreeFocus<CR>",
-  ["<C-l>"] = ":BufferLast<CR>",
+  ["<C-h>"] = "<C-w>h",
+  ["<C-l>"] = "<C-w>l",
+  ["<C-j>"] = "<C-w>j",
+  ["<C-k>"] = "<C-w>k",
   ["<S-h>"] = ":BufferPrevious<CR>",
   ["<S-l>"] = ":BufferNext<CR>",
   -- LSP
@@ -56,8 +58,10 @@ lvim.keys.visual_mode = {
   ["<Leader>j"] = "J",
   ["<Leader>/"] = ":noh<CR>",
   -- Editor
-  ["<C-h>"] = ":NvimTreeFocus<CR>",
-  ["<C-l>"] = ":BufferLast<CR>",
+  ["<C-h>"] = "<C-w>h",
+  ["<C-l>"] = "<C-w>l",
+  ["<C-j>"] = "<C-w>j",
+  ["<C-k>"] = "<C-w>k",
   ["<S-h>"] = ":BufferPrevious<CR>",
   ["<S-l>"] = ":BufferNext<CR>",
 }
