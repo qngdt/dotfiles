@@ -29,6 +29,7 @@ lvim.leader = "space"
 -- add your own keymapping
 -- normal_mode
 lvim.keys.normal_mode = {
+  -- Miscs
   ["<C-s>"] = ":w<cr>",
   ["<S-b>"] = "^",
   ["<S-e>"] = "$",
@@ -36,17 +37,29 @@ lvim.keys.normal_mode = {
   ["<S-k>"] = "5k",
   ["<Leader>j"] = "J",
   ["<Leader>/"] = ":noh<CR>",
-  ["gh"] = "<cmd>lua vim.lsp.buf.hover()<CR>"
+  -- Editor
+  ["<C-h>"] = ":NvimTreeFocus<CR>",
+  ["<C-l>"] = ":BufferLast<CR>",
+  ["<S-h>"] = ":BufferPrevious<CR>",
+  ["<S-l>"] = ":BufferNext<CR>",
+  -- LSP
+  ["gh"] = "<cmd>lua vim.lsp.buf.hover()<CR>",
 }
 
 -- visual_mode
 lvim.keys.visual_mode = {
+  -- Miscs
   ["<S-b>"] = "^",
   ["<S-e>"] = "$",
   ["<S-j>"] = "5j",
   ["<S-k>"] = "5k",
   ["<Leader>j"] = "J",
-  ["<Leader>/"] = ":noh<CR>"
+  ["<Leader>/"] = ":noh<CR>",
+  -- Editor
+  ["<C-h>"] = ":NvimTreeFocus<CR>",
+  ["<C-l>"] = ":BufferLast<CR>",
+  ["<S-h>"] = ":BufferPrevious<CR>",
+  ["<S-l>"] = ":BufferNext<CR>",
 }
 -- unmap a default keymapping
 -- lvim.keys.normal_mode["<C-Up>"] = ""
