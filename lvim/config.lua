@@ -28,23 +28,26 @@ vim.opt.tabstop = 2
 lvim.leader = "space"
 -- add your own keymapping
 -- normal_mode
-lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
-lvim.keys.normal_mode["<S-b>"] = "^"
-lvim.keys.normal_mode["<S-e>"] = "$"
-lvim.keys.normal_mode["<S-j>"] = "5j"
-lvim.keys.normal_mode["<S-k>"] = "5k"
-lvim.keys.normal_mode["<Leader>j"] = "J"
-lvim.keys.normal_mode["<Leader>k"] = "K"
-lvim.keys.normal_mode["<Leader>/"] = ":noh<CR>"
+lvim.keys.normal_mode = {
+  ["<C-s>"] = ":w<cr>",
+  ["<S-b>"] = "^",
+  ["<S-e>"] = "$",
+  ["<S-j>"] = "5j",
+  ["<S-k>"] = "5k",
+  ["<Leader>j"] = "J",
+  ["<Leader>/"] = ":noh<CR>",
+  ["gh"] = "<cmd>lua vim.lsp.buf.hover()<CR>"
+}
 
 -- visual_mode
-lvim.keys.visual_mode["<S-b>"] = "^"
-lvim.keys.visual_mode["<S-e>"] = "$"
-lvim.keys.visual_mode["<S-j>"] = "5j"
-lvim.keys.visual_mode["<S-k>"] = "5k"
-lvim.keys.visual_mode["<Leader>j"] = "J"
-lvim.keys.visual_mode["<Leader>/"] = ":noh<CR>"
-
+lvim.keys.visual_mode = {
+  ["<S-b>"] = "^",
+  ["<S-e>"] = "$",
+  ["<S-j>"] = "5j",
+  ["<S-k>"] = "5k",
+  ["<Leader>j"] = "J",
+  ["<Leader>/"] = ":noh<CR>"
+}
 -- unmap a default keymapping
 -- lvim.keys.normal_mode["<C-Up>"] = ""
 -- edit a default keymapping
