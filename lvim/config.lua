@@ -11,10 +11,9 @@ an executable
 -- general
 lvim.log.level = "warn"
 lvim.format_on_save = true
-lvim.colorscheme = "onedark"
-lvim.transparent_window = true
 
 -- vim
+vim.opt.cmdheight = 1
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.hlsearch = true
@@ -23,6 +22,14 @@ vim.opt.scrolloff = 8
 vim.opt.expandtab = true
 vim.opt.shiftwidth = 2
 vim.opt.tabstop = 2
+
+-- change colorscheme based on time
+if tonumber(os.date("%H")) < 18 then
+  lvim.colorscheme = "onebuddy"
+  vim.opt.background= "light"
+else
+  lvim.colorscheme = "onedark"
+end
 
 -- keymappings [view all the defaults by pressing <leader>Lk]
 lvim.leader = "space"
@@ -37,6 +44,7 @@ lvim.keys.normal_mode = {
   ["<S-k>"] = "5k",
   ["<Leader>j"] = "J",
   ["<Leader>/"] = ":noh<CR>",
+
   -- Editor
   ["<C-h>"] = "<C-w>h",
   ["<C-l>"] = "<C-w>l",
@@ -44,6 +52,7 @@ lvim.keys.normal_mode = {
   ["<C-k>"] = "<C-w>k",
   ["<S-h>"] = ":BufferPrevious<CR>",
   ["<S-l>"] = ":BufferNext<CR>",
+
   -- LSP
   ["gh"] = "<cmd>lua vim.lsp.buf.hover()<CR>",
 }
@@ -57,6 +66,7 @@ lvim.keys.visual_mode = {
   ["<S-k>"] = "5k",
   ["<Leader>j"] = "J",
   ["<Leader>/"] = ":noh<CR>",
+
   -- Editor
   ["<C-h>"] = "<C-w>h",
   ["<C-l>"] = "<C-w>l",
@@ -65,6 +75,7 @@ lvim.keys.visual_mode = {
   ["<S-h>"] = ":BufferPrevious<CR>",
   ["<S-l>"] = ":BufferNext<CR>",
 }
+
 -- unmap a default keymapping
 -- lvim.keys.normal_mode["<C-Up>"] = ""
 -- edit a default keymapping
@@ -193,9 +204,11 @@ formatters.setup {
 
 -- Additional Plugins
 lvim.plugins = {
-    {"navarasu/onedark.nvim"},
-    {"Th3Whit3Wolf/one-nvim"},
-    {"tpope/vim-surround"}
+  {"navarasu/onedark.nvim"},
+  {"Th3Whit3Wolf/one-nvim"},
+  {"tpope/vim-surround"},
+  {"tjdevries/colorbuddy.vim"},
+  {"Th3Whit3Wolf/onebuddy"}
 }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
