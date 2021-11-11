@@ -345,8 +345,8 @@ set -g default-terminal "xterm-256color"
 # set -g prefix C-a
 # bind C-a send-prefix
 #
-bind -r [ previous-window
-bind -r ] next-window
+bind -r H previous-window
+bind -r L next-window
 
 # move status line to top
 #set -g status-position top
