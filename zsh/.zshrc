@@ -123,3 +123,6 @@ if type nvim > /dev/null 2>&1; then
   alias vim='lvim'
 fi
 
+# Disable Homebrew auto update
+export HOMEBREW_NO_AUTO_UPDATE=1
+
