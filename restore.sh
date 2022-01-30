@@ -1,15 +1,15 @@
 # Restore Neovim
-cp -R ./nvim/* ~/.config/nvim
+cp -R ./nvim/init.vim ~/.config/nvim/init.vim
 
 # Restore LunvarVim
-cp ./lvim/config.lua ~/.config/lvim
+cp ./lvim/config.lua ~/.config/lvim/config.lua
 
 # Restore zsh
 cp ./zsh/.p10k.zsh ~/.p10k.zsh
 cp ./zsh/.zshrc ~/.zshrc
 
 # Restore Alacritty
-cp -R ./alacritty/* ~/.config/alacritty
+cp -R ./alacritty/alacritty.yml ~/.config/alacritty/alacritty.yml
 
 # Restore Tmux 
 if [ -d "~/.tmux" ]; then
