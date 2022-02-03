@@ -76,7 +76,23 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Add wisely, as too many plugins slow down shell startup.
 export NVM_COMPLETION=true
 
-plugins=(zsh-nvm git vscode zsh-autosuggestions fast-syntax-highlighting z zsh-completions vi-mode kubectl docker-compose)
+plugins=(
+  aws
+  z
+  git
+  vscode
+  tmux
+  fast-syntax-highlighting
+  zsh-autosuggestions
+  zsh-nvm
+  zsh-completions
+  docker
+  docker-compose
+  golang
+  python
+  pyenv
+  rust
+)
 
 source $ZSH/oh-my-zsh.sh
 # User configuration
@@ -116,8 +132,6 @@ export PATH=$PATH:$HOME/.local/bin
 
 autoload -U +X bashcompinit && bashcompinit
 fpath=($fpath ~/.zsh/completion)
-
-eval "$(pyenv init --path)"
 
 if type nvim > /dev/null 2>&1; then
   alias vim='lvim'
