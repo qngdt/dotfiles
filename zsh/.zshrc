@@ -90,7 +90,6 @@ plugins=(
   docker-compose
   golang
   python
-  pyenv
   rust
 )
 
@@ -137,6 +136,13 @@ if type nvim > /dev/null 2>&1; then
   alias vim='lvim'
 fi
 
+# pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init --path)"
+
 # Disable Homebrew auto update
 export HOMEBREW_NO_AUTO_UPDATE=1
 
+# Auto start Tmux
+export ZSH_TMUX_AUTOSTART=true
