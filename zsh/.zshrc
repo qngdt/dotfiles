@@ -144,5 +144,3 @@ eval "$(pyenv init --path)"
 # Disable Homebrew auto update
 export HOMEBREW_NO_AUTO_UPDATE=1
 
-# Auto start Tmux
-export ZSH_TMUX_AUTOSTART=true
