@@ -91,6 +91,7 @@ plugins=(
   golang
   python
   rust
+  terraform
 )
 
 source $ZSH/oh-my-zsh.sh
