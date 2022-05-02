@@ -10,7 +10,7 @@ an executable
 
 -- general
 lvim.log.level = "warn"
-lvim.format_on_save = false
+lvim.format_on_save = true
 
 -- vim
 vim.opt.cmdheight = 1
@@ -230,7 +230,6 @@ formatters.setup {
 lvim.plugins = {
   {"navarasu/onedark.nvim"},
   {"Th3Whit3Wolf/one-nvim"},
-  {"tpope/vim-surround"},
   {"tjdevries/colorbuddy.vim"},
   {"Th3Whit3Wolf/onebuddy"}
 }
