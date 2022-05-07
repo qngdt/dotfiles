@@ -410,5 +410,3 @@ set -g @continuum-restore 'on'
 # "$@"
 # # /!\ do not remove the previous line
 
-set -g lock-after-time 300
-set -g lock-command "cmatrix"
