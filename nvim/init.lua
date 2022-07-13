@@ -1,4 +1,5 @@
-require("options")
-require("keymaps")
-require("plugins")
-require("colorschemes")
+require("qngdt.options")
+require("qngdt.keymaps")
+require("qngdt.plugins")
+require("qngdt.colorschemes")
+
