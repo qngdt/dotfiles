@@ -79,6 +79,7 @@ export NVM_COMPLETION=true
 plugins=(
   aws
   z
+  zsh-vi-mode
   git
   vscode
   tmux
@@ -109,7 +110,7 @@ export LC_CTYPE="en_US.UTF-8"
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='vim'
 else
-  export EDITOR='mvim'
+  export EDITOR='nvim'
 fi
 
 if type nvim > /dev/null 2>&1; then
@@ -154,3 +155,7 @@ export PATH="/Users/qngdt/.rd/bin:$PATH"
 export PNPM_HOME="/Users/qngdt/Library/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 # pnpm end
+#
+# zsh-vi-mode
+ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
+#
