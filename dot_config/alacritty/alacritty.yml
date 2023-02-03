@@ -908,7 +908,7 @@ key_bindings:
   # Kill the current tmux pane (and window if last pane)
   - { key: W, mods: Command, chars: "\x01\x78" }
   # Find window
-  - { key: F, mods: Command, chars: "\x01\x66" }
+  - { key: F, mods: Command, chars: "\x01\x06" }
   #- { key: Paste,                                       action: Paste          }
   #- { key: Copy,                                        action: Copy           }
   #- { key: L,         mods: Control,                    action: ClearLogNotice }

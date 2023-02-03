@@ -37,6 +37,6 @@ yabai -m config window_gap 5
 # apps to not manage (ignore)
 yabai -m rule --add app="^System Settings$" manage=off
 yabai -m rule --add app="^Archive Utility$" manage=off
-yabai -m rule --add app="^Alfred Preferences$" manage=off
+yabai -m rule --add app="^Raycast$" manage=off
 
 echo "yabai configuration loaded.."
