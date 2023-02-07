@@ -92,7 +92,6 @@ require("packer").startup(function(use)
 	-- Misc
 	use("kylechui/nvim-surround")
 	use("windwp/nvim-autopairs")
-	use("akinsho/toggleterm.nvim")
 
 	if PACKER_BOOTSTRAP then
 		require("packer").sync()
