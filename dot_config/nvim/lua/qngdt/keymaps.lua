@@ -51,7 +51,6 @@ keymap("n", "<Leader>j", "J", opts) -- Update the default <S-j>
 
 -- Telescope
 keymap("n", "<Leader>f", ":Telescope find_files<CR>", opts)
-keymap("n", "<Leader>F", ":Telescope live_grep<CR>", opts)
 -- nvim-tree
 keymap("n", "<Leader>e", ":NvimTreeToggle<CR>", opts)
 -- Buffer
