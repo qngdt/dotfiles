@@ -4,7 +4,7 @@ if not status_ok then
 end
 
 lsp_installer.setup({
-	ensure_installed = { "sumneko_lua", "jsonls", "rust_analyzer", "tsserver" },
+	ensure_installed = { "sumneko_lua", "rust_analyzer", "tsserver" },
 	automatic_installation = true,
 })
 

@@ -62,7 +62,7 @@ local function lsp_keymaps(bufnr)
 	vim.api.nvim_buf_set_keymap(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
 	vim.api.nvim_buf_set_keymap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
 	vim.api.nvim_buf_set_keymap(bufnr, "n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-	vim.api.nvim_buf_set_keymap(bufnr, "n", "<Leader>lf", "<cmd>lua vim.lsp.buf.format()<CR>", opts)
+	vim.api.nvim_buf_set_keymap(bufnr, "n", "<Leader>lf", "<cmd>lua vim.lsp.buf.format({async = true})<CR>", opts)
 	vim.api.nvim_buf_set_keymap(bufnr, "n", "gR", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
 	vim.api.nvim_buf_set_keymap(bufnr, "n", "<Leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
 
@@ -76,11 +76,11 @@ local function lsp_keymaps(bufnr)
 	vim.api.nvim_buf_set_keymap(bufnr, "n", "]d", '<cmd>lua vim.diagnostic.goto_next({ border = "rounded" })<CR>', opts)
 
 	-- Format on save
-	vim.cmd([[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]])
+	vim.cmd([[autocmd BufWritePre <buffer> lua vim.lsp.buf.format({async = true})]])
 end
 
 M.on_attach = function(client, bufnr)
-	client.server_capabilities.document_formatting = false
+	client.server_capabilities.documentFormattingProvider = false
 	lsp_keymaps(bufnr)
 	lsp_highlight_document(client)
 end
