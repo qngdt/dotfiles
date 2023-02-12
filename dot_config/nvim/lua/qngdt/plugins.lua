@@ -43,27 +43,6 @@ require("packer").startup(function(use)
 	-- Package manager
 	use("wbthomason/packer.nvim")
 
-	-- Treesitter
-	use("nvim-treesitter/nvim-treesitter")
-	use("nvim-treesitter/nvim-treesitter-context")
-
-	-- Theme
-	use({ "catppuccin/nvim", as = "catppuccin" })
-
-	-- cmp
-	use("hrsh7th/nvim-cmp", {
-		requires = {
-			"hrsh7th/cmp-buffer",
-			"hrsh7th/cmp-path",
-			"hrsh7th/cmp-nvim-lsp",
-			"saadparwaiz1/cmp_luasnip",
-		},
-	})
-
-	-- Snippets
-	use("L3MON4D3/LuaSnip")
-	use("rafamadriz/friendly-snippets")
-
 	-- LSP
 	use("neovim/nvim-lspconfig", {
 		requires = {
@@ -80,13 +59,35 @@ require("packer").startup(function(use)
 			},
 		},
 	})
+
+	-- Treesitter
+	use("nvim-treesitter/nvim-treesitter")
+	use("nvim-treesitter/nvim-treesitter-context")
+
+	-- Theme
+	use({ "catppuccin/nvim", as = "catppuccin" })
+
+	-- CMP
+	use("hrsh7th/nvim-cmp", {
+		requires = {
+			"hrsh7th/cmp-buffer",
+			"hrsh7th/cmp-path",
+			"hrsh7th/cmp-nvim-lsp",
+			"saadparwaiz1/cmp_luasnip",
+      "L3MON4D3/LuaSnip",
+      "rafamadriz/friendly-snippets"
+		},
+	})
+
 	use("jose-elias-alvarez/null-ls.nvim")
 
 	-- Telescope
 	use({
 		"nvim-telescope/telescope.nvim",
 		tag = "0.1.0",
-		requires = { { "nvim-lua/plenary.nvim" } },
+		requires =  {
+      "nvim-lua/plenary.nvim"
+    },
 	})
 
 	-- Nvim-tree
