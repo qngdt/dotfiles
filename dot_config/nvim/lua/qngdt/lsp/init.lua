@@ -4,7 +4,7 @@ require("mason").setup({})
 
 local mason_lspconfig = require("mason-lspconfig")
 local servers = {
-	"sumneko_lua",
+	"lua_ls",
 	"rust_analyzer",
 	"tsserver",
 }
