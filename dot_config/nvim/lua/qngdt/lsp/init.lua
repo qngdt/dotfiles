@@ -31,3 +31,5 @@ mason_lspconfig.setup_handlers({
 		require("lspconfig")[server_name].setup(opts)
 	end,
 })
+
+require("fidget").setup()

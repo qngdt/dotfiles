@@ -1,7 +1,7 @@
 local opts = { noremap = true, silent = true }
 
 -- Shorten function name
-local keymap = vim.api.nvim_set_keymap
+local keymap = vim.keymap.set
 
 --Remap space as leader key
 keymap("", "<Space>", "<Nop>", opts)
@@ -55,8 +55,32 @@ keymap("n", "<Leader>d", '"_d', opts)
 keymap("n", "<Leader>c", '"_c', opts)
 
 -- Telescope
-keymap("n", "<Leader>p", ":Telescope find_files<CR>", opts)
-keymap("n", "<Leader>f", ":Telescope live_grep<CR>", opts)
+keymap("n", "<Leader>?", require("telescope.builtin").oldfiles, { desc = "[?] Find recently opened files" })
+keymap("n", "<Leader><Leader>", require("telescope.builtin").buffers, { desc = "[ ] Find existing buffers" })
+keymap("n", "<Leader>/", function()
+	-- You can pass additional configuration to telescope to change theme, layout, etc.
+	require("telescope.builtin").current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
+		winblend = 10,
+		previewer = false,
+	}))
+end, { desc = "[/] Fuzzily search in current buffer]" })
+
+keymap("n", "<Leader>?", require("telescope.builtin").oldfiles, { desc = "[?] Find recently opened files" })
+keymap("n", "<Leader><space>", require("telescope.builtin").buffers, { desc = "[ ] Find existing buffers" })
+keymap("n", "<Leader>/", function()
+	-- You can pass additional configuration to telescope to change theme, layout, etc.
+	require("telescope.builtin").current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
+		winblend = 10,
+		previewer = false,
+	}))
+end, { desc = "[/] Fuzzily search in current buffer]" })
+
+keymap("n", "<Leader>sf", require("telescope.builtin").find_files, { desc = "[S]earch [F]iles" })
+keymap("n", "<Leader>sh", require("telescope.builtin").help_tags, { desc = "[S]earch [H]elp" })
+keymap("n", "<Leader>sw", require("telescope.builtin").grep_string, { desc = "[S]earch current [W]ord" })
+keymap("n", "<Leader>sg", require("telescope.builtin").live_grep, { desc = "[S]earch by [G]rep" })
+keymap("n", "<Leader>sd", require("telescope.builtin").diagnostics, { desc = "[S]earch [D]iagnostics" })
+
 -- nvim-tree
 keymap("n", "<Leader>e", ":NvimTreeToggle<CR>", opts)
 -- Buffer
