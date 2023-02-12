@@ -44,21 +44,20 @@ require("packer").startup(function(use)
 	use("wbthomason/packer.nvim")
 
 	-- LSP
-	use("neovim/nvim-lspconfig", {
-		requires = {
-			{
-				-- Automatically install LSPs to stdpath for neovim
-				"williamboman/mason.nvim",
-				"williamboman/mason-lspconfig.nvim",
+  use { 
+    'neovim/nvim-lspconfig',
+    requires = {
+      -- Automatically install LSPs to stdpath for neovim
+      'williamboman/mason.nvim',
+      'williamboman/mason-lspconfig.nvim',
 
-				-- Useful status updates for LSP
-				"j-hui/fidget.nvim",
+      -- Useful status updates for LSP
+      'j-hui/fidget.nvim',
 
-				-- Additional lua configuration, makes nvim stuff amazing
-				"folke/neodev.nvim",
-			},
-		},
-	})
+      -- Additional lua configuration, makes nvim stuff amazing
+      'folke/neodev.nvim',
+    },
+  }
 
 	-- Treesitter
 	use("nvim-treesitter/nvim-treesitter")
@@ -68,7 +67,8 @@ require("packer").startup(function(use)
 	use({ "catppuccin/nvim", as = "catppuccin" })
 
 	-- CMP
-	use("hrsh7th/nvim-cmp", {
+	use {
+    "hrsh7th/nvim-cmp",
 		requires = {
 			"hrsh7th/cmp-buffer",
 			"hrsh7th/cmp-path",
@@ -77,18 +77,18 @@ require("packer").startup(function(use)
       "L3MON4D3/LuaSnip",
       "rafamadriz/friendly-snippets"
 		},
-	})
+	}
 
 	use("jose-elias-alvarez/null-ls.nvim")
 
 	-- Telescope
-	use({
+	use {
 		"nvim-telescope/telescope.nvim",
 		tag = "0.1.0",
 		requires =  {
       "nvim-lua/plenary.nvim"
     },
-	})
+	}
 
 	-- Nvim-tree
 	use("kyazdani42/nvim-tree.lua")
