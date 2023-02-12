@@ -49,6 +49,11 @@ keymap("n", "<C-u>", "<C-u>zz", opts)
 keymap("n", "n", "nzz", opts)
 keymap("n", "<Leader>j", "J", opts) -- Update the default <S-j>
 
+-- Delete without yanking
+keymap("n", "<Leader>x", '"_x', opts)
+keymap("n", "<Leader>d", '"_d', opts)
+keymap("n", "<Leader>c", '"_c', opts)
+
 -- Telescope
 keymap("n", "<Leader>p", ":Telescope find_files<CR>", opts)
 keymap("n", "<Leader>f", ":Telescope live_grep<CR>", opts)
@@ -82,3 +87,8 @@ keymap("v", "<S-j>", "<C-d>zz", opts)
 keymap("v", "<S-k>", "<C-u>zz", opts)
 keymap("v", "<C-d>", "<C-d>zz", opts)
 keymap("v", "<C-u>", "<C-u>zz", opts)
+
+-- Delete without yanking
+keymap("v", "<Leader>x", '"_x', opts)
+keymap("v", "<Leader>d", '"_d', opts)
+keymap("v", "<Leader>c", '"_c', opts)
