@@ -51,21 +51,35 @@ require("packer").startup(function(use)
 	use({ "catppuccin/nvim", as = "catppuccin" })
 
 	-- cmp
-	use("hrsh7th/nvim-cmp")
-	use("hrsh7th/cmp-buffer")
-	use("hrsh7th/cmp-path")
-	use("hrsh7th/cmp-nvim-lsp")
-	use("hrsh7th/cmp-nvim-lua")
-	use("saadparwaiz1/cmp_luasnip")
+	use("hrsh7th/nvim-cmp", {
+		requires = {
+			"hrsh7th/cmp-buffer",
+			"hrsh7th/cmp-path",
+			"hrsh7th/cmp-nvim-lsp",
+			"saadparwaiz1/cmp_luasnip",
+		},
+	})
 
 	-- Snippets
 	use("L3MON4D3/LuaSnip")
 	use("rafamadriz/friendly-snippets")
 
 	-- LSP
-	use("neovim/nvim-lspconfig")
-	use("williamboman/mason.nvim")
-	use("williamboman/mason-lspconfig.nvim")
+	use("neovim/nvim-lspconfig", {
+		requires = {
+			{
+				-- Automatically install LSPs to stdpath for neovim
+				"williamboman/mason.nvim",
+				"williamboman/mason-lspconfig.nvim",
+
+				-- Useful status updates for LSP
+				"j-hui/fidget.nvim",
+
+				-- Additional lua configuration, makes nvim stuff amazing
+				"folke/neodev.nvim",
+			},
+		},
+	})
 	use("jose-elias-alvarez/null-ls.nvim")
 
 	-- Telescope
