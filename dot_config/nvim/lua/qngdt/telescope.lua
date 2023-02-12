@@ -39,6 +39,16 @@ require("telescope").setup({
 				["<C-d>"] = actions.preview_scrolling_down,
 			},
 		},
+		vimgrep_arguments = {
+			"rg",
+			"--color=never",
+			"--no-heading",
+			"--with-filename",
+			"--line-number",
+			"--column",
+			"--smart-case",
+			"--trim",
+		},
 	},
 	pickers = {
 		-- Default configuration for builtin pickers goes here:
