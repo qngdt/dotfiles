@@ -77,6 +77,11 @@ local function lsp_keymaps(bufnr)
 
 	-- Format on save
 	vim.cmd([[autocmd BufWritePre <buffer> lua vim.lsp.buf.format({async = true})]])
+
+	-- Create a command `:Format` local to the LSP buffer
+	vim.api.nvim_buf_create_user_command(bufnr, "Format", function(_)
+		vim.lsp.buf.format()
+	end, { desc = "Format current buffer with LSP" })
 end
 
 M.on_attach = function(client, bufnr)
