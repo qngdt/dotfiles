@@ -56,7 +56,7 @@ keymap("n", "<Leader>c", '"_c', opts)
 
 -- Telescope
 keymap("n", "<Leader>?", require("telescope.builtin").oldfiles, { desc = "[?] Find recently opened files" })
-keymap("n", "<Leader><Leader>", require("telescope.builtin").buffers, { desc = "[ ] Find existing buffers" })
+keymap("n", "<Leader>.", require("telescope.builtin").buffers, { desc = "[ ] Find existing buffers" })
 keymap("n", "<Leader>/", function()
 	-- You can pass additional configuration to telescope to change theme, layout, etc.
 	require("telescope.builtin").current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
@@ -64,17 +64,6 @@ keymap("n", "<Leader>/", function()
 		previewer = false,
 	}))
 end, { desc = "[/] Fuzzily search in current buffer]" })
-
-keymap("n", "<Leader>?", require("telescope.builtin").oldfiles, { desc = "[?] Find recently opened files" })
-keymap("n", "<Leader><space>", require("telescope.builtin").buffers, { desc = "[ ] Find existing buffers" })
-keymap("n", "<Leader>/", function()
-	-- You can pass additional configuration to telescope to change theme, layout, etc.
-	require("telescope.builtin").current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
-		winblend = 10,
-		previewer = false,
-	}))
-end, { desc = "[/] Fuzzily search in current buffer]" })
-
 keymap("n", "<Leader>sf", require("telescope.builtin").find_files, { desc = "[S]earch [F]iles" })
 keymap("n", "<Leader>sh", require("telescope.builtin").help_tags, { desc = "[S]earch [H]elp" })
 keymap("n", "<Leader>sw", require("telescope.builtin").grep_string, { desc = "[S]earch current [W]ord" })
@@ -84,7 +73,7 @@ keymap("n", "<Leader>sd", require("telescope.builtin").diagnostics, { desc = "[S
 -- nvim-tree
 keymap("n", "<Leader>e", ":NvimTreeToggle<CR>", opts)
 -- Buffer
-keymap("n", "<Leader>q", ":Bdelete<CR>", opts)
+keymap("n", "<Leader>w", ":Bdelete<CR>", opts)
 
 -- Insert --
 -- Press jk fast to exit insert mode
