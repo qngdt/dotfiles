@@ -1,7 +1,7 @@
 require("qngdt.plugins")
 require("qngdt.options")
-require("qngdt.telescope")
 require("qngdt.keymaps")
+require("qngdt.telescope")
 require("qngdt.colorschemes")
 require("qngdt.cmp")
 require("qngdt.lsp")
