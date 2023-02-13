@@ -23,10 +23,6 @@ keymap("n", "<C-j>", "<C-w>j", opts)
 keymap("n", "<C-k>", "<C-w>k", opts)
 keymap("n", "<C-l>", "<C-w>l", opts)
 
--- Navigate buffers
-keymap("n", "<S-l>", ":bnext<CR>", opts)
-keymap("n", "<S-h>", ":bprevious<CR>", opts)
-
 -- Resize with arrows
 keymap("n", "<C-Up>", ":resize -2<CR>", opts)
 keymap("n", "<C-Down>", ":resize +2<CR>", opts)
@@ -73,7 +69,10 @@ keymap("n", "<Leader>sd", require("telescope.builtin").diagnostics, { desc = "[S
 -- nvim-tree
 keymap("n", "<Leader>e", ":NvimTreeToggle<CR>", opts)
 -- Buffer
+keymap("n", "<S-l>", ":bnext<CR>", opts)
+keymap("n", "<S-h>", ":bprevious<CR>", opts)
 keymap("n", "<Leader>w", ":Bdelete<CR>", opts)
+keymap("n", "<Leader>W", ":bd|e#<CR>", opts)
 
 -- Insert --
 -- Press jk fast to exit insert mode
