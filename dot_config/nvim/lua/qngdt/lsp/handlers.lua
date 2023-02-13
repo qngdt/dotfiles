@@ -56,24 +56,28 @@ local function lsp_highlight_document(client)
 end
 
 local function lsp_keymaps(bufnr)
-	local opts = { noremap = true, silent = true }
+	local nmap = function(keys, func, desc)
+		if desc then
+			desc = "LSP: " .. desc
+		end
 
-	vim.api.nvim_buf_set_keymap(bufnr, "n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-	vim.api.nvim_buf_set_keymap(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-	vim.api.nvim_buf_set_keymap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-	vim.api.nvim_buf_set_keymap(bufnr, "n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-	vim.api.nvim_buf_set_keymap(bufnr, "n", "<Leader>lf", "<cmd>lua vim.lsp.buf.format({async = true})<CR>", opts)
-	vim.api.nvim_buf_set_keymap(bufnr, "n", "gR", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
-	vim.api.nvim_buf_set_keymap(bufnr, "n", "<Leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
+		vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc })
+	end
 
-	vim.api.nvim_buf_set_keymap(
-		bufnr,
-		"n",
-		"gl",
-		'<cmd>lua vim.diagnostic.open_float({ border = "rounded" })<CR>',
-		opts
-	)
-	vim.api.nvim_buf_set_keymap(bufnr, "n", "]d", '<cmd>lua vim.diagnostic.goto_next({ border = "rounded" })<CR>', opts)
+	nmap("<Leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
+	nmap("<Leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+
+	nmap("gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
+	nmap("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
+	nmap("gI", vim.lsp.buf.implementation, "[G]oto [I]mplementation")
+	nmap("gl", vim.diagnostic.open_float, "Open Diagnostic")
+	nmap("gh", vim.lsp.buf.hover, "Hover Documentation")
+	nmap("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
+	nmap("gR", vim.lsp.buf.rename, "[R]ename")
+	nmap("<Leader>D", vim.lsp.buf.type_definition, "Type [D]efinition")
+	nmap("<Leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
+	nmap("<Leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
+	nmap("<Leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
 
 	-- Format on save
 	vim.cmd([[autocmd BufWritePre <buffer> lua vim.lsp.buf.format({async = true})]])

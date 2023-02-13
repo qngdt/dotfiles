@@ -72,7 +72,6 @@ keymap("n", "<Leader>e", ":NvimTreeToggle<CR>", opts)
 keymap("n", "<S-l>", ":bnext<CR>", opts)
 keymap("n", "<S-h>", ":bprevious<CR>", opts)
 keymap("n", "<Leader>w", ":Bdelete<CR>", opts)
-keymap("n", "<Leader>W", ":bd|e#<CR>", opts)
 
 -- Insert --
 -- Press jk fast to exit insert mode
