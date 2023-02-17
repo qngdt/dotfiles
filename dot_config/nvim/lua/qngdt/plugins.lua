@@ -106,10 +106,8 @@ require("packer").startup(function(use)
 
 	-- Bufferline & Lualine
 	use("akinsho/bufferline.nvim")
-	use({
-		"nvim-lualine/lualine.nvim",
-		requires = { "kyazdani42/nvim-web-devicons", opt = true },
-	})
+	use("nvim-lualine/lualine.nvim")
+	use("nvim-tree/nvim-web-devicons")
 
 	-- Git
 	use("lewis6991/gitsigns.nvim")
