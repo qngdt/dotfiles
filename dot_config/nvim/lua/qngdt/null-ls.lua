@@ -14,4 +14,3 @@ null_ls.setup({
 		formatting.stylua,
 	},
 })
-
