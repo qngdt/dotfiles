@@ -121,6 +121,7 @@ require("packer").startup(function(use)
 	use("numToStr/Comment.nvim") -- "gc" to comment visual regions/lines
 	use("tpope/vim-sleuth") -- Detect tabstop and shiftwidth automatically
 	use("numToStr/FTerm.nvim") -- Toggle terminal
+	use("mg979/vim-visual-multi") -- Multi cursor
 
 	-- Copilot
 	use("github/copilot.vim")
