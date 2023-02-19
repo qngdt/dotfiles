@@ -100,9 +100,7 @@ require("packer").startup(function(use)
 		},
 	})
 	use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make", cond = vim.fn.executable("make") == 1 })
-
-	-- Nvim-tree
-	use("kyazdani42/nvim-tree.lua")
+	use("nvim-telescope/telescope-file-browser.nvim")
 
 	-- Bufferline & Lualine
 	use("akinsho/bufferline.nvim")
