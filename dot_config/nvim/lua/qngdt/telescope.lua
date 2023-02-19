@@ -65,6 +65,11 @@ require("telescope").setup({
 		--   extension_config_key = value,
 		-- }
 		-- please take a look at the readme of the extension you want to configure
+		file_browser = {
+			hijack_netrw = true,
+			auto_depth = true,
+			display_stat = { date = true },
+		},
 	},
 })
 

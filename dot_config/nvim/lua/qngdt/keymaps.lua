@@ -65,7 +65,7 @@ keymap("n", "<Leader>sh", require("telescope.builtin").help_tags, { desc = "[S]e
 keymap("n", "<Leader>sw", require("telescope.builtin").grep_string, { desc = "[S]earch current [W]ord" })
 keymap("n", "<Leader>sg", require("telescope.builtin").live_grep, { desc = "[S]earch by [G]rep" })
 keymap("n", "<Leader>sd", require("telescope.builtin").diagnostics, { desc = "[S]earch [D]iagnostics" })
-keymap("n", "<Leader>ff", require("telescope").extensions.file_browser.file_browser, { desc = "[F]iles" })
+keymap("n", "<Leader>ff", ":Telescope file_browser path=%:p:h select_buffer=true<CR>", { desc = "[F]iles" })
 
 -- Buffer
 keymap("n", "<S-l>", ":BufferLineCycleNext<CR>", opts)
