@@ -5,7 +5,7 @@ require("telescope").setup({
 
 		prompt_prefix = " ",
 		selection_caret = " ",
-		path_display = { "smart" },
+		path_display = { "truncate" },
 
 		mappings = {
 			i = {
