@@ -104,6 +104,3 @@ keymap("v", "<Leader>x", '"_x', opts)
 keymap("v", "<Leader>d", '"_d', opts)
 keymap("v", "<Leader>c", '"_c', opts)
 
--- Toggle Terminal
-keymap("n", "<C-t>", require("FTerm").toggle, { desc = "Toggle Terminal" })
-keymap("t", "<C-t>", '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>')
