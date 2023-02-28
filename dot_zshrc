@@ -76,6 +76,10 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Add wisely, as too many plugins slow down shell startup.
 export NVM_COMPLETION=true
 
+# zsh-vi-mode
+ZVM_INIT_MODE=sourcing
+ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
+
 plugins=(
   aws
   z
@@ -83,8 +87,9 @@ plugins=(
   git
   vscode
   tmux
-  fast-syntax-highlighting
   zsh-autosuggestions
+  fast-syntax-highlighting
+  fzf
   zsh-nvm
   zsh-completions
   docker
@@ -155,7 +160,6 @@ export PATH="/Users/qngdt/.rd/bin:$PATH"
 export PNPM_HOME="/Users/qngdt/Library/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 # pnpm end
-#
-# zsh-vi-mode
-ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
-#
+
+## fzf
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
