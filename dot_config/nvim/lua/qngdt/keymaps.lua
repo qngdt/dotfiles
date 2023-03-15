@@ -104,3 +104,5 @@ keymap("v", "<Leader>x", '"_x', opts)
 keymap("v", "<Leader>d", '"_d', opts)
 keymap("v", "<Leader>c", '"_c', opts)
 
+-- nvim-tree
+keymap("n", "<Leader>e", ":NvimTreeToggle<CR>", opts)
