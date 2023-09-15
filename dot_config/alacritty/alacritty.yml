@@ -9,7 +9,7 @@ env:
   #TERM: alacritty
 
 window:
-  opacity: 0.90
+  opacity: 0.95
   # Window dimensions (changes require restart)
   #
   # Number of lines/columns (not pixels) in the termina. The number of columns
@@ -108,7 +108,7 @@ font:
     style: Italic
     # Point size
     #
-  size: 15.0
+  size: 16.0
 
   # Offset is the extra space around each character. `offset.y` can be thought
   # of as modifying the line spacing, and `offset.x` as modifying the letter
