@@ -149,8 +149,8 @@ key = "L"
 mods = "Command"
 
 [[keyboard.bindings]]
-chars = "\u0001["
-key = "LBracket"
+chars = "\u0001\u0008"
+key = "{"
 mods = "Command|Shift"
 
 [[keyboard.bindings]]
@@ -169,8 +169,8 @@ key = "Q"
 mods = "Command"
 
 [[keyboard.bindings]]
-chars = "\u0001]"
-key = "RBracket"
+chars = "\u0001\u000c"
+key = "}"
 mods = "Command|Shift"
 
 [[keyboard.bindings]]
