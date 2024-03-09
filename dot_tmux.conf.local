@@ -381,7 +381,6 @@ tmux_conf_update_plugins_on_reload=true
 set -g @plugin 'tmux-plugins/tmux-cpu'
 set -g @plugin 'tmux-plugins/tmux-resurrect'
 set -g @plugin 'tmux-plugins/tmux-continuum'
-set -g @plugin 'joshmedeski/tmux-nerd-font-window-name'
 set -g @continuum-restore 'on'
 
 
