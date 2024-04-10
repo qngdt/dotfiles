@@ -128,6 +128,8 @@ mods = "Command"
 [window]
 decorations = "none"
 opacity = 0.95
+blur = true
+startup_mode = "Maximized"
 
 [window.position]
 x = 5
