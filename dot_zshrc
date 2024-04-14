@@ -152,14 +152,13 @@ eval "$(pyenv init --path)"
 # Disable Homebrew auto update
 export HOMEBREW_NO_AUTO_UPDATE=1
 
-
-### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
-export PATH="/Users/qngdt/.rd/bin:$PATH"
-### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
 # pnpm
 export PNPM_HOME="/Users/qngdt/Library/pnpm"
 export PATH="$PNPM_HOME:$PATH"
-# pnpm end
+
+# Go 
+export PATH="$PATH:$(go env GOPATH)/bin"
+# Go end
 
 ## fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
