@@ -162,3 +162,6 @@ export PATH="$PATH:$(go env GOPATH)/bin"
 
 ## fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+## libpq
+echo 'export PATH="/opt/homebrew/opt/libpq/bin:$PATH"' >> ~/.zshrc
