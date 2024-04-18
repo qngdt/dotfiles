@@ -436,7 +436,8 @@ set -g @plugin 'tmux-plugins/tmux-continuum'
 set -g @continuum-restore 'on'
 
 set -g @plugin 'catppuccin/tmux'
-
+set -g @catppuccin_window_default_text "#W"
+set -g @catppuccin_window_current_text "#W"
 
 # -- custom variables ----------------------------------------------------------
 
