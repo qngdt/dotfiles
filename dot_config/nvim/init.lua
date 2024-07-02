@@ -795,6 +795,8 @@ require('lazy').setup({
         return '%2l:%-2v'
       end
 
+      require('mini.pairs').setup()
+
       -- ... and there is more!
       --  Check out: https://github.com/echasnovski/mini.nvim
     end,
@@ -838,6 +840,7 @@ require('lazy').setup({
     config = function()
       local elixir = require 'elixir'
       local elixirls = require 'elixir.elixirls'
+      local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
       elixir.setup {
         nextls = { enable = true },
@@ -847,6 +850,7 @@ require('lazy').setup({
           settings = elixirls.settings {
             dialyzerEnabled = false,
             enableTestLenses = false,
+            capabilities = capabilities,
           },
           on_attach = function()
             vim.keymap.set('n', '<space>fp', ':ElixirFromPipe<cr>', { buffer = true, noremap = true })
