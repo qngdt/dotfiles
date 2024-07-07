@@ -154,6 +154,13 @@ vim.opt.cursorline = true
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 15
 
+-- Enable 24-bit colour
+vim.opt.termguicolors = true
+
+-- Indentation size
+vim.opt.shiftwidth = 2
+vim.opt.tabstop = 2
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
@@ -409,7 +416,7 @@ require('lazy').setup({
 
       -- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
       -- used for completion, annotations and signatures of Neovim apis
-      { 'folke/neodev.nvim', opts = {} },
+      { 'folke/lazydev.nvim', opts = {} },
     },
     config = function()
       -- Brief aside: **What is LSP?**
@@ -447,10 +454,13 @@ require('lazy').setup({
           -- NOTE: Remember that Lua is a real programming language, and as such it is possible
           -- to define small helper and utility functions so you don't have to repeat yourself.
           --
-          -- In this case, we create a function that lets us more easily define mappings specific
+          -- In this case, we create functions that lets us more easily define mappings specific
           -- for LSP related items. It sets the mode, buffer and description for us each time.
           local map = function(keys, func, desc)
             vim.keymap.set('n', keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
+          end
+          local imap = function(keys, func, desc)
+            vim.keymap.set('i', keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
           end
 
           -- Jump to the definition of the word under your cursor.
@@ -487,12 +497,15 @@ require('lazy').setup({
           map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
           -- Opens a popup that displays documentation about the word under your cursor
-          --  See `:help K` for why this keymap.
+          --  See `:help gh` for why this keymap.
           map('gh', vim.lsp.buf.hover, 'Hover Documentation')
 
           -- WARN: This is not Goto Definition, this is Goto Declaration.
           --  For example, in C this would take you to the header.
           map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+
+          -- Opens a popup that displays signature help about the current argument under your cursor
+          imap('<C-k>', vim.lsp.buf.signature_help, 'Hover Signature Help')
 
           -- The following two autocommands are used to highlight references of the
           -- word under your cursor when your cursor rests there for a little while.
@@ -673,6 +686,7 @@ require('lazy').setup({
       --  into multiple repos for maintenance purposes.
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-path',
+      'hrsh7th/cmp-nvim-lsp-signature-help',
     },
     config = function()
       -- See `:help cmp`
@@ -735,7 +749,7 @@ require('lazy').setup({
           --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
         },
         sources = {
-          { name = 'nvim_lsp' },
+          { name = 'nvim_lsp', { name = 'nvim_lsp_signature_help' } },
           { name = 'luasnip' },
           { name = 'path' },
         },
