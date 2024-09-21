@@ -1013,14 +1013,14 @@ require('lazy').setup({
         elixirls = {
           enable = true,
           settings = elixirls.settings {
-            dialyzerEnabled = false,
-            enableTestLenses = false,
+            dialyzerenabled = false,
+            enabletestlenses = false,
             capabilities = capabilities,
           },
           on_attach = function()
-            vim.keymap.set('n', '<space>fp', ':ElixirFromPipe<cr>', { buffer = true, noremap = true })
-            vim.keymap.set('n', '<space>tp', ':ElixirToPipe<cr>', { buffer = true, noremap = true })
-            vim.keymap.set('v', '<space>em', ':ElixirExpandMacro<cr>', { buffer = true, noremap = true })
+            vim.keymap.set('n', '<space>fp', ':elixirfrompipe<cr>', { buffer = true, noremap = true })
+            vim.keymap.set('n', '<space>tp', ':elixirtopipe<cr>', { buffer = true, noremap = true })
+            vim.keymap.set('v', '<space>em', ':elixirexpandmacro<cr>', { buffer = true, noremap = true })
           end,
         },
       }
@@ -1031,11 +1031,11 @@ require('lazy').setup({
   },
   {
     'kylechui/nvim-surround',
-    version = '*', -- Use for stability; omit to use `main` branch for the latest features
-    event = 'VeryLazy',
+    version = '*', -- use for stability; omit to use `main` branch for the latest features
+    event = 'verylazy',
     config = function()
       require('nvim-surround').setup {
-        -- Configuration here, or leave empty to use defaults
+        -- configuration here, or leave empty to use defaults
       }
     end,
   },
