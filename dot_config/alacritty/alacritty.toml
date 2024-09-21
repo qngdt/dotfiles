@@ -142,7 +142,7 @@ key = "L"
 mods = "Command|Shift"
 
 [window]
-decorations = "None"
+decorations = "Buttonless"
 opacity = 0.95
 blur = true
 startup_mode = "Maximized"
