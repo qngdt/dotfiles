@@ -372,7 +372,7 @@ require('lazy').setup({
       { 'nvim-telescope/telescope-ui-select.nvim' },
 
       -- Useful for getting pretty icons, but requires a Nerd Font.
-      { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
+      { 'nvim-tree/nvim-web-devicons',            enabled = vim.g.have_nerd_font },
     },
     config = function()
       -- Telescope is a fuzzy finder that comes with a lot of different things that
@@ -468,7 +468,7 @@ require('lazy').setup({
 
       -- Useful status updates for LSP.
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', opts = {} },
+      { 'j-hui/fidget.nvim',  opts = {} },
 
       -- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
       -- used for completion, annotations and signatures of Neovim apis
@@ -1032,7 +1032,7 @@ require('lazy').setup({
   {
     'kylechui/nvim-surround',
     version = '*', -- use for stability; omit to use `main` branch for the latest features
-    event = 'verylazy',
+    event = 'VeryLazy',
     config = function()
       require('nvim-surround').setup {
         -- configuration here, or leave empty to use defaults
