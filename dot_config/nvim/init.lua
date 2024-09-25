@@ -372,7 +372,7 @@ require('lazy').setup({
       { 'nvim-telescope/telescope-ui-select.nvim' },
 
       -- Useful for getting pretty icons, but requires a Nerd Font.
-      { 'nvim-tree/nvim-web-devicons',            enabled = vim.g.have_nerd_font },
+      { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
     },
     config = function()
       -- Telescope is a fuzzy finder that comes with a lot of different things that
@@ -468,7 +468,7 @@ require('lazy').setup({
 
       -- Useful status updates for LSP.
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim',  opts = {} },
+      { 'j-hui/fidget.nvim', opts = {} },
 
       -- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
       -- used for completion, annotations and signatures of Neovim apis
@@ -1066,8 +1066,18 @@ require('lazy').setup({
       vim.g.loaded_netrw = 1
       vim.g.loaded_netrwPlugin = 1
 
+      -- Auto Close
+      vim.api.nvim_create_autocmd('BufEnter', {
+        nested = true,
+        callback = function()
+          if #vim.api.nvim_list_wins() == 1 and require('nvim-tree.utils').is_nvim_tree_buf() then
+            vim.cmd 'quit'
+          end
+        end,
+      })
+
       -- Toggle keymap
-      vim.keymap.set('n', '<leader>e', ':NvimTreeToggle<CR>', { noremap = true })
+      vim.keymap.set('n', '<leader>fe', ':NvimTreeToggle<CR>', { noremap = true, desc = 'Toggle [F]ile [E]xplorer' })
     end,
   },
 
