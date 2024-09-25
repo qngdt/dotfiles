@@ -1,8 +1,0 @@
-{
-    "workspace.library": [
-        "/Users/qngdt/.local/share/nvim/lazy/neodev.nvim/types/stable",
-        "/opt/homebrew/Cellar/neovim/0.9.5/share/nvim/runtime/lua",
-        "/Users/qngdt/.local/share/chezmoi/dot_config/nvim/lua",
-        "${3rd}/luv/library"
-    ]
-}
