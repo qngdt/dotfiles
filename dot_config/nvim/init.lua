@@ -876,6 +876,7 @@ require('lazy').setup({
   { -- Collection of various small independent plugins/modules
     'echasnovski/mini.nvim',
     config = function()
+      require('mini.ai').setup()
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,
       --  and try some other statusline plugin
@@ -895,6 +896,8 @@ require('lazy').setup({
 
       -- ... and there is more!
       --  Check out: https://github.com/echasnovski/mini.nvim
+      require('mini.files').setup()
+      vim.keymap.set('n', '<leader>fe', ':lua MiniFiles.open()<CR>', { noremap = true, desc = 'Toggle [F]ile [E]xplorer' })
     end,
   },
   { -- Highlight, edit, and navigate code
@@ -1014,47 +1017,6 @@ require('lazy').setup({
       require('nvim-surround').setup {
         -- configuration here, or leave empty to use defaults
       }
-    end,
-  },
-  {
-    'nvim-tree/nvim-tree.lua',
-    version = '*',
-    lazy = false,
-    dependencies = {
-      'nvim-tree/nvim-web-devicons',
-    },
-    config = function()
-      require('nvim-tree').setup {
-        view = {
-          adaptive_size = true,
-        },
-        filters = {
-          custom = {
-            '^\\.git',
-          },
-        },
-        update_focused_file = {
-          enable = true,
-        },
-      }
-    end,
-    init = function()
-      -- disable netrw
-      vim.g.loaded_netrw = 1
-      vim.g.loaded_netrwPlugin = 1
-
-      -- Auto Close
-      vim.api.nvim_create_autocmd('BufEnter', {
-        nested = true,
-        callback = function()
-          if #vim.api.nvim_list_wins() == 1 and require('nvim-tree.utils').is_nvim_tree_buf() then
-            vim.cmd 'quit'
-          end
-        end,
-      })
-
-      -- Toggle keymap
-      vim.keymap.set('n', '<leader>fe', ':NvimTreeToggle<CR>', { noremap = true, desc = 'Toggle [F]ile [E]xplorer' })
     end,
   },
 
