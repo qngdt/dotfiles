@@ -161,9 +161,8 @@ set -g @plugin 'tmux-plugins/tmux-pain-control'
 set -g @plugin 'tmux-plugins/tmux-sensible'
 set -g @plugin 'tmux-plugins/tmux-logging'
 
-set -g @plugin 'fabioluciano/tmux-tokyo-night'
-set -g @theme_disable_plugins 1
-
+set -g @plugin 'egel/tmux-gruvbox'
+set -g @tmux-gruvbox 'dark'
 
 # -- custom variables ----------------------------------------------------------
 
