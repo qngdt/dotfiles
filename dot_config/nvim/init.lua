@@ -768,8 +768,8 @@ require('lazy').setup({
     'ellisonleao/gruvbox.nvim',
     priority = 1000,
     init = function()
-      local time = os.date '*t'
-      if time.hour >= 6 and time.hour < 18 then
+      local hour = tonumber(os.date '%H')
+      if hour >= 6 and hour < 18 then
         vim.o.background = 'light'
       else
         vim.o.background = 'dark'
@@ -930,6 +930,14 @@ require('lazy').setup({
     config = function()
       require('nvim-surround').setup()
     end,
+  },
+  {
+    'OXY2DEV/markview.nvim',
+    lazy = false,
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter',
+      'nvim-tree/nvim-web-devicons',
+    },
   },
 }, {
   ui = {
