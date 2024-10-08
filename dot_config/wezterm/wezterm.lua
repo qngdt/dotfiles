@@ -18,17 +18,12 @@ config.window_padding = {
 }
 
 -- Font
-config.font = wezterm.font("JetBrains Mono")
+config.font = wezterm.font("JetBrains Mono", { weight = "Medium" })
 config.font_size = 17
 
 -- Keymaps
 config.disable_default_key_bindings = true
 config.keys = {
-	{
-		key = "c",
-		mods = "SUPER",
-		action = wezterm.action.CopyTo("Clipboard"),
-	},
 	{
 		key = "v",
 		mods = "SUPER",
