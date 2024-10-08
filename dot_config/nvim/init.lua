@@ -130,7 +130,7 @@ vim.keymap.set('n', '[t', ':tabprevious<CR>', { desc = 'Move to the previous tab
 
 -- Cursor navigation
 vim.keymap.set('i', 'jk', '<ESC>', { desc = 'Press jk fast to exit insert mode' })
-vim.keymap.set('v', 'p', '"_p"', { desc = 'Quick copy in visual mode' })
+vim.keymap.set('v', 'p', 'P', { desc = 'Quick copy in visual mode' })
 vim.keymap.set({ 'n', 'v' }, 'J', '<C-d>zz', { desc = 'Fast down' })
 vim.keymap.set({ 'n', 'v' }, 'K', '<C-u>zz', { desc = 'Fast up' })
 vim.keymap.set('n', '<C-d>', '<C-d>zz', { desc = 'Fast down' })
@@ -675,15 +675,12 @@ require('lazy').setup({
           return 'make install_jsregexp'
         end)(),
         dependencies = {
-          -- `friendly-snippets` contains a variety of premade snippets.
-          --    See the README about individual language/framework/plugin snippets:
-          --    https://github.com/rafamadriz/friendly-snippets
-          -- {
-          --   'rafamadriz/friendly-snippets',
-          --   config = function()
-          --     require('luasnip.loaders.from_vscode').lazy_load()
-          --   end,
-          -- },
+          {
+            'rafamadriz/friendly-snippets',
+            config = function()
+              require('luasnip.loaders.from_vscode').lazy_load()
+            end,
+          },
         },
       },
       'saadparwaiz1/cmp_luasnip',
