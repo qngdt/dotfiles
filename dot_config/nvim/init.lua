@@ -76,7 +76,7 @@ vim.opt.shiftwidth = 2
 vim.opt.tabstop = 2
 
 -- Line wrap
-vim.opt.textwidth = 80
+vim.opt.textwidth = 120
 vim.opt.wrapmargin = 0
 vim.opt.wrap = true
 vim.opt.linebreak = true
@@ -137,6 +137,10 @@ vim.keymap.set('n', '<C-d>', '<C-d>zz', { desc = 'Fast down' })
 vim.keymap.set('n', '<C-u>', '<C-u>zz', { desc = 'Fast up' })
 vim.keymap.set({ 'n', 'v', 'o' }, 'B', '^', { desc = 'Go to the begining of the line' })
 vim.keymap.set({ 'n', 'v', 'o' }, 'E', '$', { desc = 'Go to the end of the line' })
+
+-- Stay in visual mode when indenting
+vim.keymap.set('v', '<', '<gv', { desc = 'Shift left <<<' })
+vim.keymap.set('v', '>', '>gv', { desc = 'Shift right >>>' })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -217,21 +221,21 @@ require('lazy').setup({
         end
 
         -- Navigation
-        map('n', ']c', function()
+        map('n', ']g', function()
           if vim.wo.diff then
-            vim.cmd.normal { ']c', bang = true }
+            vim.cmd.normal { ']g', bang = true }
           else
             gitsigns.nav_hunk 'next'
           end
-        end, { desc = 'Jump to next git [c]hange' })
+        end, { desc = 'Jump to next [g]it change' })
 
-        map('n', '[c', function()
+        map('n', '[g', function()
           if vim.wo.diff then
-            vim.cmd.normal { '[c', bang = true }
+            vim.cmd.normal { '[g', bang = true }
           else
             gitsigns.nav_hunk 'prev'
           end
-        end, { desc = 'Jump to previous git [c]hange' })
+        end, { desc = 'Jump to previous [g]it change' })
 
         -- Actions
         -- normal mode
