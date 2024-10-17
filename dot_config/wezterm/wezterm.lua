@@ -18,7 +18,7 @@ config.window_padding = {
 }
 
 -- Font
-config.font = wezterm.font("JetBrains Mono", { weight = "Medium" })
+config.font = wezterm.font("JetBrains Mono", { weight = "DemiBold" })
 config.font_size = 17
 
 -- Keymaps
