@@ -72,8 +72,8 @@ vim.opt.scrolloff = 15
 vim.opt.termguicolors = true
 
 -- Indentation size
-vim.opt.shiftwidth = 2
-vim.opt.tabstop = 2
+vim.opt.shiftwidth = 4
+vim.opt.tabstop = 4
 
 -- Line wrap
 vim.opt.textwidth = 120
@@ -91,29 +91,25 @@ vim.opt.foldnestmax = 4
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
+-- Better save
+vim.api.nvim_create_user_command('W', 'w', {})
+
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true
-vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
+vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>', { silent = true })
+
+-- Buffer keymaps
+vim.keymap.set('n', '<leader><leader>', ':b#<CR>', { desc = 'Switch to the previous buffer', noremap = true, silent = true })
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
 vim.keymap.set('n', '<leader>em', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror [M]essages' })
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setqflist, { desc = 'Open diagnostic [Q]uickfix list' })
 
--- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
--- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
--- is not what someone will guess without a bit more experience.
---
--- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
--- or just use <C-\><C-n> to exit terminal mode
-vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
-
--- TIP: Disable arrow keys in normal mode
--- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
--- vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
--- vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
--- vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
+-- Quickfix keymaps
+vim.keymap.set('n', '[q', ':cprev<CR>', { desc = 'Go to previous [Q]uickfix item', noremap = true, silent = true })
+vim.keymap.set('n', ']q', ':cnext<CR>', { desc = 'Go to next [Q]uikfix item', noremap = true, silent = true })
 
 -- Keybinds to make split navigation easier.
 --  Use CTRL+<hjkl> to switch between windows
@@ -125,8 +121,8 @@ vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower win
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
 -- Tab navigation
-vim.keymap.set('n', ']t', ':tabnext<CR>', { desc = 'Move to the next tab' })
-vim.keymap.set('n', '[t', ':tabprevious<CR>', { desc = 'Move to the previous tab' })
+vim.keymap.set('n', ']t', ':tabnext<CR>', { desc = 'Move to the next tab', noremap = true, silent = true })
+vim.keymap.set('n', '[t', ':tabprevious<CR>', { desc = 'Move to the previous tab', noremap = true, silent = true })
 
 -- Cursor navigation
 vim.keymap.set('i', 'jk', '<ESC>', { desc = 'Press jk fast to exit insert mode' })
@@ -349,7 +345,7 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
       vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
-      vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
+      vim.keymap.set('n', '<leader>;', builtin.buffers, { desc = '[ ] Find existing buffers' })
 
       -- Slightly advanced example of overriding default behavior and theme
       vim.keymap.set('n', '<leader>/', function()
@@ -529,8 +525,6 @@ require('lazy').setup({
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
         -- clangd = {},
-        -- gopls = {},
-        -- pyright = {},
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
@@ -540,7 +534,6 @@ require('lazy').setup({
         -- But for many setups, the LSP (`ts_ls`) will work just fine
         -- ts_ls = {},
         --
-
         lua_ls = {
           -- cmd = {...},
           -- filetypes = { ...},
@@ -559,6 +552,8 @@ require('lazy').setup({
         sqlls = {},
         ts_ls = {},
         gopls = {},
+        ruff = {},
+        elixirls = {},
       }
 
       -- Ensure the servers and tools above are installed
@@ -625,14 +620,18 @@ require('lazy').setup({
         lua = { 'stylua' },
         javascript = { 'prettier', lsp_format = 'fallback' },
         typescript = { 'prettier', lsp_format = 'fallback' },
-        python = { 'black' },
-        -- Conform can also run multiple formatters sequentially
-        --
-        -- You can use a sub-list to tell conform to run *until* a formatter
-        -- is found.
+        python = {
+          -- To fix auto-fixable lint errors.
+          'ruff_fix',
+          -- To run the Ruff formatter.
+          'ruff_format',
+          -- To organize the imports.
+          'ruff_organize_imports',
+        },
       },
     },
     init = function()
+      vim.g.disable_autoformat = true
       vim.api.nvim_create_user_command('FormatDisable', function(args)
         if args.bang then
           -- FormatDisable! will disable formatting just for this buffer
@@ -658,7 +657,7 @@ require('lazy').setup({
           },
         }, true, {})
       end, {
-        desc = 'Re-enable autoformat-on-save',
+        desc = 'Enable autoformat-on-save',
       })
     end,
   },
@@ -688,10 +687,6 @@ require('lazy').setup({
         },
       },
       'saadparwaiz1/cmp_luasnip',
-
-      -- Adds other completion capabilities.
-      --  nvim-cmp does not ship with all sources by default. They are split
-      --  into multiple repos for maintenance purposes.
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-nvim-lsp-signature-help',
@@ -788,16 +783,9 @@ require('lazy').setup({
     'echasnovski/mini.nvim',
     config = function()
       require('mini.ai').setup()
-      -- Simple and easy statusline.
-      --  You could remove this setup call if you don't like it,
-      --  and try some other statusline plugin
-      local statusline = require 'mini.statusline'
-      -- set use_icons to true if you have a Nerd Font
-      statusline.setup { use_icons = vim.g.have_nerd_font }
 
-      -- You can configure sections in the statusline by overriding their
-      -- default behavior. For example, here we set the section for
-      -- cursor location to LINE:COLUMN
+      local statusline = require 'mini.statusline'
+      statusline.setup { use_icons = vim.g.have_nerd_font }
       ---@diagnostic disable-next-line: duplicate-set-field
       statusline.section_location = function()
         return '%2l:%-2v'
@@ -805,8 +793,6 @@ require('lazy').setup({
 
       require('mini.pairs').setup()
 
-      -- ... and there is more!
-      --  Check out: https://github.com/echasnovski/mini.nvim
       require('mini.files').setup()
       local minifiles_toggle = function()
         if not MiniFiles.close() then
@@ -892,37 +878,6 @@ require('lazy').setup({
       --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
       --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
     end,
-  },
-  { -- Elixir
-    'elixir-tools/elixir-tools.nvim',
-    version = '*',
-    event = { 'BufReadPre', 'BufNewFile' },
-    config = function()
-      local elixir = require 'elixir'
-      local elixirls = require 'elixir.elixirls'
-      local capabilities = require('cmp_nvim_lsp').default_capabilities()
-
-      elixir.setup {
-        nextls = { enable = true },
-        credo = {},
-        elixirls = {
-          enable = true,
-          settings = elixirls.settings {
-            dialyzerenabled = false,
-            enabletestlenses = false,
-            capabilities = capabilities,
-          },
-          on_attach = function()
-            vim.keymap.set('n', '<space>fp', ':elixirfrompipe<cr>', { buffer = true, noremap = true })
-            vim.keymap.set('n', '<space>tp', ':elixirtopipe<cr>', { buffer = true, noremap = true })
-            vim.keymap.set('v', '<space>em', ':elixirexpandmacro<cr>', { buffer = true, noremap = true })
-          end,
-        },
-      }
-    end,
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-    },
   },
   {
     'kylechui/nvim-surround',
