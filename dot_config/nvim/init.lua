@@ -551,7 +551,13 @@ require('lazy').setup({
         bashls = {},
         sqlls = {},
         ts_ls = {},
-        gopls = {},
+        gopls = {
+          settings = {
+            gopls = {
+              gofumpt = true,
+            },
+          },
+        },
         ruff = {},
         elixirls = {},
       }
