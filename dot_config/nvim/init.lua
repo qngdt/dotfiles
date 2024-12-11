@@ -282,7 +282,6 @@ require('lazy').setup({
           return vim.fn.executable 'make' == 1
         end,
       },
-      { 'nvim-telescope/telescope-ui-select.nvim' },
 
       -- Useful for getting pretty icons, but requires a Nerd Font.
       { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
@@ -313,25 +312,16 @@ require('lazy').setup({
         -- You can put your default mappings / updates / etc. in here
         --  All the info you're looking for is in `:help telescope.setup()`
         --
-        defaults = {
+        defaults = require('telescope.themes').get_dropdown {
           mappings = {
             n = { ['<c-d>'] = require('telescope.actions').delete_buffer },
             i = { ['<c-d>'] = require('telescope.actions').delete_buffer },
-          },
-        },
-        -- pickers = {
-        --
-        -- },
-        extensions = {
-          ['ui-select'] = {
-            require('telescope.themes').get_dropdown(),
           },
         },
       }
 
       -- Enable Telescope extensions if they are installed
       pcall(require('telescope').load_extension, 'fzf')
-      pcall(require('telescope').load_extension, 'ui-select')
 
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
