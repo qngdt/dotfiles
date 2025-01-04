@@ -16,6 +16,8 @@ config.window_padding = {
 	top = 0,
 	bottom = 0,
 }
+-- Theme
+config.color_scheme = "Gruvbox Material (Gogh)"
 
 -- Font
 config.font = wezterm.font("JetBrains Mono", { weight = "DemiBold" })

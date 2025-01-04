@@ -757,7 +757,7 @@ require('lazy').setup({
     end,
   },
   { -- Theme
-    'ellisonleao/gruvbox.nvim',
+    'sainnhe/gruvbox-material',
     priority = 1000,
     init = function()
       local hour = tonumber(os.date '%H')
@@ -766,7 +766,8 @@ require('lazy').setup({
       else
         vim.o.background = 'dark'
       end
-      vim.cmd.colorscheme 'gruvbox'
+      vim.g.gruvbox_material_enable_italic = true
+      vim.cmd.colorscheme 'gruvbox-material'
     end,
   },
   { -- Highlight todo, notes, etc in comments
