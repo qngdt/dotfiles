@@ -87,11 +87,8 @@ function zvm_after_init() {
 }
 
 plugins=(
-  fast-syntax-highlighting
   fzf-tab
-  tmux
   z
-  zsh-autosuggestions
   zsh-vi-mode
 )
 
