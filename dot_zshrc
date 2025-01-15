@@ -87,7 +87,6 @@ function zvm_after_init() {
 }
 
 plugins=(
-  fzf-tab
   z
   zsh-vi-mode
 )
@@ -129,18 +128,6 @@ export GIT_EDITOR=vim
 __git_files () { 
     _wanted files expl 'local files' _files     
 }
-
-# fzf-tab
-# disable sort when completing `git checkout`
-zstyle ':completion:*:git-checkout:*' sort false
-# set descriptions format to enable group support
-zstyle ':completion:*:descriptions' format '[%d]'
-# set list-colors to enable filename colorizing
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-# force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
-zstyle ':completion:*' menu no
-# switch group using `<` and `>`
-zstyle ':fzf-tab:*' switch-group '<' '>'
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
