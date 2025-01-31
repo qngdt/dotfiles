@@ -541,13 +541,7 @@ require('lazy').setup({
         bashls = {},
         sqlls = {},
         ts_ls = {},
-        gopls = {
-          settings = {
-            gopls = {
-              gofumpt = true,
-            },
-          },
-        },
+        gopls = {},
         ruff = {},
         elixirls = {},
       }
@@ -624,6 +618,7 @@ require('lazy').setup({
           -- To organize the imports.
           'ruff_organize_imports',
         },
+        go = { 'goimports', 'gofumpt' },
       },
     },
     init = function()
