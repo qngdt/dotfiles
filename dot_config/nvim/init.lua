@@ -240,7 +240,13 @@ require('lazy').setup {
 			},
 		},
 		keys = {
-			{ '<leader>so', function() Snacks.picker.buffers() end,               desc = '[S]earch [O]pen Files' },
+			{ '<leader>so',
+				function()
+					Snacks.picker.buffers({
+						layout = { preset = "vscode" }
+					})
+				end,
+				desc = '[S]earch [O]pen Files' },
 			{ '<leader>sf',
 				function()
 					Snacks.picker.files({
