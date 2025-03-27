@@ -103,14 +103,8 @@ vim.keymap.set('n', '<leader><leader>', ':b#<CR>',
 	{ desc = 'Switch to the previous buffer', noremap = true, silent = true })
 
 -- Diagnostic keymaps
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
 vim.keymap.set('n', '<leader>em', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror [M]essages' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setqflist, { desc = 'Open diagnostic [Q]uickfix list' })
-
--- Quickfix keymaps
-vim.keymap.set('n', '[q', ':cprev<CR>', { desc = 'Go to previous [Q]uickfix item', noremap = true, silent = true })
-vim.keymap.set('n', ']q', ':cnext<CR>', { desc = 'Go to next [Q]uikfix item', noremap = true, silent = true })
 
 -- Keybinds to make split navigation easier.
 --  Use CTRL+<hjkl> to switch between windows
@@ -290,8 +284,6 @@ require('lazy').setup {
 						vim.keymap.set('i', keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
 					end
 
-					map('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
-					map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 					map('gh', vim.lsp.buf.hover, 'Hover Documentation')
 					imap('<C-k>', vim.lsp.buf.signature_help, 'Hover Signature Help')
 
