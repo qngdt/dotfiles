@@ -310,21 +310,14 @@ require('lazy').setup {
 			local capabilities = require('blink.cmp').get_lsp_capabilities()
 
 			local servers = {
-				lua_ls = {
-					settings = {
-						Lua = {
-							completion = {
-								callSnippet = 'Replace',
-							},
-						},
-					},
-				},
+				lua_ls = {},
 				bashls = {},
 				sqlls = {},
 				ts_ls = {},
 				gopls = {},
 				ruff = {},
 				elixirls = {},
+				ruby_lsp = {},
 			}
 
 			require('mason').setup()
@@ -349,9 +342,9 @@ require('lazy').setup {
 		lazy = false,
 		keys = {
 			{
-				'<leader>f',
+				'<leader>ff',
 				function()
-					require('conform').format { async = true, lsp_fallback = true }
+					require('conform').format()
 				end,
 				mode = '',
 				desc = '[F]ormat buffer',
@@ -359,26 +352,26 @@ require('lazy').setup {
 		},
 		opts = {
 			notify_on_error = false,
-			format_on_save = function(bufnr)
+			default_format_opts = {
+				lsp_format = "fallback",
+				async = true,
+			},
+			format_after_save = function(bufnr)
 				-- Disable with a global or buffer-local variable
 				if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
 					return
 				end
-				--
-				-- Disable 'format_on_save lsp_fallback' for languages that don't
-				-- have a well standardized coding style. You can add additional
-				-- languages here or re-enable it for the disabled ones.
-				local disable_filetypes = { c = true, cpp = true }
+
 				return {
-					timeout_ms = 500,
-					lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
+					lsp_format = "fallback",
 				}
 			end,
 			formatters_by_ft = {
-				javascript = { 'prettier', lsp_format = 'fallback' },
-				typescript = { 'prettier', lsp_format = 'fallback' },
+				javascript = { 'prettier' },
+				typescript = { 'prettier' },
 				python = { 'ruff_fix', 'ruff_format', 'ruff_organize_imports' },
 				go = { 'goimports', 'gofumpt' },
+				ruby = { 'rubocop' },
 			},
 		},
 		init = function()
