@@ -223,6 +223,14 @@ config.keys = {
 			wezterm.action.SendKey({ key = "l" }),
 		}),
 	},
+	{
+		key = "|",
+		mods = "SUPER|SHIFT",
+		action = wezterm.action.Multiple({
+			wezterm.action.SendKey({ key = "a", mods = "CTRL" }),
+			wezterm.action.SendKey({ key = "Tab" }),
+		}),
+	},
 }
 
 -- and finally, return the configuration to wezterm
