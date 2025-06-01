@@ -504,7 +504,7 @@ require("lazy").setup({
 
 	{
 		"saghen/blink.cmp",
-		dependencies = "rafamadriz/friendly-snippets",
+		dependencies = { "rafamadriz/friendly-snippets" },
 		version = "*",
 		opts = {
 			keymap = {
@@ -526,6 +526,15 @@ require("lazy").setup({
 			},
 			sources = {
 				default = { "lsp", "path", "snippets", "buffer" },
+				providers = {
+					snippets = {
+						opts = {
+							extended_filetypes = {
+								ruby = { "rails" },
+							},
+						},
+					},
+				},
 			},
 		},
 	},
