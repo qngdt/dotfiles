@@ -411,7 +411,6 @@ require("lazy").setup({
 				ts_ls = {},
 				gopls = {},
 				ruff = {},
-				elixirls = {},
 				ruby_lsp = {},
 			}
 
@@ -608,7 +607,6 @@ require("lazy").setup({
 				"javascript",
 				"go",
 				"sql",
-				"elixir",
 				"diff",
 				"git_rebase",
 				"gitcommit",
