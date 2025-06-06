@@ -541,14 +541,14 @@ require("lazy").setup({
 	{ -- Theme
 		"sainnhe/gruvbox-material",
 		priority = 1000,
-		init = function()
-			local hour = tonumber(os.date("%H"))
-			if hour >= 6 and hour < 18 then
-				vim.o.background = "light"
-			else
-				vim.o.background = "dark"
-			end
+		config = function()
+			vim.g.gruvbox_material_dim_inactive_windows = 1
+			vim.g.gruvbox_material_cursor = "red"
+			vim.g.gruvbox_material_enable_bold = 1
+			vim.g.gruvbox_material_background = "hard"
+			vim.g.gruvbox_material_better_performance = 1
 			vim.g.gruvbox_material_enable_italic = true
+			vim.o.background = "light"
 			vim.cmd.colorscheme("gruvbox-material")
 		end,
 	},
