@@ -90,8 +90,9 @@ function zvm_after_init() {
 }
 
 plugins=(
-  z
-  zsh-vi-mode
+	z
+	zsh-vi-mode
+	zsh-syntax-highlighting
 )
 
 source $ZSH/oh-my-zsh.sh
