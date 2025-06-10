@@ -98,19 +98,10 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
-export PATH="$PATH:/opt/nvim/bin"
-
 # You may need to manually set your language environment
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
 export LC_CTYPE="en_US.UTF-8" 
-
-# Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='vim'
-else
-  export EDITOR='nvim'
-fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -121,6 +112,9 @@ fi
 # Disable Homebrew auto update
 export HOMEBREW_NO_AUTO_UPDATE=1
 
+# nvim
+export PATH="$PATH:/opt/nvim/bin"
+
 # libpq
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 
@@ -129,6 +123,11 @@ export GIT_EDITOR=vim
 __git_files () { 
     _wanted files expl 'local files' _files     
 }
+
+# Use nvim as the default if possible
+if type nvim > /dev/null 2>&1; then
+	export EDITOR='nvim'
+fi
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -147,11 +146,13 @@ alias ld="lazydocker"
 alias rm="rm -iv" # because I'm an idiot sandwich
 
 # git alias
-alias gp='git pull'
 alias gP='git push'
-alias gst='git status'
-alias gc='git commit'
 alias ga='git add'
+alias gc='git commit'
+alias gco='git checkout'
+alias gd='git diff'
+alias gp='git pull'
+alias gst='git status'
 git config --global alias.rage 'reset --hard HEAD' # git rage
 
 # kubectl
