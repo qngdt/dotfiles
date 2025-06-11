@@ -93,6 +93,8 @@ vim.opt.foldnestmax = 4
 
 -- Better save
 vim.api.nvim_create_user_command("W", "w", {})
+-- Because I type so fast some times
+vim.api.nvim_create_user_command("Q", "q", {})
 
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true
@@ -411,14 +413,18 @@ require("lazy").setup({
 				ts_ls = {},
 				gopls = {},
 				ruff = {},
-				ruby_lsp = {},
+				ruby_lsp = {
+					cmd_env = { BUNDLE_GEMFILE = vim.fn.getenv("GLOBAL_GEMFILE") },
+					root_dir = function()
+						return vim.loop.cwd()
+					end,
+				},
 			}
 
 			local formatters = {
 				"stylua",
 				"gofumpt",
 				"goimports",
-				"rubocop",
 			}
 
 			local ensure_installed = vim.tbl_keys(servers or {})
@@ -599,17 +605,19 @@ require("lazy").setup({
 		opts = {
 			ensure_installed = {
 				"bash",
-				"html",
-				"lua",
-				"markdown",
-				"vim",
-				"typescript",
-				"javascript",
-				"go",
-				"sql",
 				"diff",
 				"git_rebase",
 				"gitcommit",
+				"go",
+				"html",
+				"javascript",
+				"lua",
+				"markdown",
+				"markdown_inline",
+				"ruby",
+				"sql",
+				"typescript",
+				"vim",
 			},
 			auto_install = true,
 			highlight = {
@@ -676,6 +684,38 @@ require("lazy").setup({
 	{
 		"MeanderingProgrammer/render-markdown.nvim",
 		dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.nvim" },
-		opts = {},
+		opts = {
+			file_types = { "markdown" },
+		},
+		ft = { "markdown" },
+	},
+	{
+		"olimorris/codecompanion.nvim",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"nvim-treesitter/nvim-treesitter",
+		},
+		opts = {
+			strategies = {
+				chat = {
+					adapter = "gemini",
+				},
+				inline = {
+					adapter = "gemini",
+				},
+				cmd = {
+					adapter = "gemini",
+				},
+			},
+		},
+		config = function(_, opts)
+			require("codecompanion").setup(opts)
+			vim.keymap.set(
+				"n",
+				"<leader>ca",
+				require("codecompanion").toggle,
+				{ noremap = true, desc = "Toggle [C]ode [A]gent" }
+			)
+		end,
 	},
 })
