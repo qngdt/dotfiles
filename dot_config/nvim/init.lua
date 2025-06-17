@@ -95,6 +95,14 @@ vim.opt.foldnestmax = 4
 vim.api.nvim_create_user_command("W", "w", {})
 -- Because I type so fast some times
 vim.api.nvim_create_user_command("Q", "q", {})
+vim.api.nvim_create_user_command("Qa", "qa", {})
+
+-- Copy current buffer path to clipboard
+vim.api.nvim_create_user_command(
+	"CopyPath",
+	"let @+ = expand('%:.')",
+	{ desc = "Copy the relative path of the current buffer" }
+)
 
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true
