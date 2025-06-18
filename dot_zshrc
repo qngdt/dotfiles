@@ -157,3 +157,6 @@ git config --global alias.rage 'reset --hard HEAD' # git rage
 
 # kubectl
 alias k='kubectl'
+
+# local credentials
+[[ -f ~/.local.env ]] && source ~/.local.env
