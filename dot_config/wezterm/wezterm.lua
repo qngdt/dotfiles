@@ -128,7 +128,7 @@ config.keys = {
 		}),
 	},
 	{
-		key = "Q",
+		key = "q",
 		mods = "SUPER",
 		action = wezterm.action.Multiple({
 			wezterm.action.SendKey({ key = "a", mods = "CTRL" }),
@@ -189,38 +189,6 @@ config.keys = {
 		action = wezterm.action.Multiple({
 			wezterm.action.SendKey({ key = "a", mods = "CTRL" }),
 			wezterm.action.SendKey({ key = ">" }),
-		}),
-	},
-	{
-		key = "h",
-		mods = "SUPER|SHIFT",
-		action = wezterm.action.Multiple({
-			wezterm.action.SendKey({ key = "a", mods = "CTRL" }),
-			wezterm.action.SendKey({ key = "h" }),
-		}),
-	},
-	{
-		key = "j",
-		mods = "SUPER|SHIFT",
-		action = wezterm.action.Multiple({
-			wezterm.action.SendKey({ key = "a", mods = "CTRL" }),
-			wezterm.action.SendKey({ key = "j" }),
-		}),
-	},
-	{
-		key = "k",
-		mods = "SUPER|SHIFT",
-		action = wezterm.action.Multiple({
-			wezterm.action.SendKey({ key = "a", mods = "CTRL" }),
-			wezterm.action.SendKey({ key = "k" }),
-		}),
-	},
-	{
-		key = "l",
-		mods = "SUPER|SHIFT",
-		action = wezterm.action.Multiple({
-			wezterm.action.SendKey({ key = "a", mods = "CTRL" }),
-			wezterm.action.SendKey({ key = "l" }),
 		}),
 	},
 	{

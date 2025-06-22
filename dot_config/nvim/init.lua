@@ -1,6 +1,4 @@
 -- Set <space> as the leader key
--- See `:help mapleader`
---  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
@@ -8,9 +6,6 @@ vim.g.maplocalleader = " "
 vim.g.have_nerd_font = true
 
 -- [[ Setting options ]]
--- See `:help vim.opt`
--- NOTE: You can change these options as you wish!
---  For more options, you can see `:help option-list`
 
 -- Make line numbers default
 vim.opt.number = true
@@ -93,15 +88,20 @@ vim.opt.foldnestmax = 4
 
 -- Better save
 vim.api.nvim_create_user_command("W", "w", {})
--- Because I type so fast some times
+-- Because I type too fast some times
 vim.api.nvim_create_user_command("Q", "q", {})
 vim.api.nvim_create_user_command("Qa", "qa", {})
 
 -- Copy current buffer path to clipboard
 vim.api.nvim_create_user_command(
-	"CopyPath",
+	"CopyRelPath",
 	"let @+ = expand('%:.')",
 	{ desc = "Copy the relative path of the current buffer" }
+)
+vim.api.nvim_create_user_command(
+	"CopyAbsPath",
+	"let @+ = expand('%:p')",
+	{ desc = "Copy the absolute path of the current buffer" }
 )
 
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
@@ -121,9 +121,6 @@ vim.keymap.set("n", "<leader>em", vim.diagnostic.open_float, { desc = "Show diag
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setqflist, { desc = "Open diagnostic [Q]uickfix list" })
 
 -- Keybinds to make split navigation easier.
---  Use CTRL+<hjkl> to switch between windows
---
---  See `:help wincmd` for a list of all window commands
 vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
 vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
 vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
@@ -216,8 +213,8 @@ require("lazy").setup({
 
 				-- Actions
 				-- normal mode
-				map("n", "<leader>gb", gitsigns.blame_line, { desc = "git [b]lame line" })
-				map("n", "<leader>tb", gitsigns.toggle_current_line_blame, { desc = "[T]oggle git show [b]lame line" })
+				map("n", "<leader>gb", gitsigns.blame_line, { desc = "[G]it [B]lame line" })
+				map("n", "<leader>tb", gitsigns.toggle_current_line_blame, { desc = "[T]oggle Git [B]lame line" })
 			end,
 		},
 	},
@@ -256,7 +253,7 @@ require("lazy").setup({
 						layout = { preset = "vscode" },
 					})
 				end,
-				desc = "[S]earch [O]pen Files",
+				desc = "[S]earch [O]pened Buffers",
 			},
 			{
 				"<leader>sf",
@@ -275,20 +272,6 @@ require("lazy").setup({
 				desc = "[S]earch [D]iagnostic",
 			},
 			{
-				"<leader>sh",
-				function()
-					Snacks.picker.help()
-				end,
-				desc = "[S]earch [H]elp",
-			},
-			{
-				"<leader>sk",
-				function()
-					Snacks.picker.keymaps()
-				end,
-				desc = "[S]earch [K]keymaps",
-			},
-			{
 				"<leader>sg",
 				function()
 					Snacks.picker.grep()
@@ -301,13 +284,6 @@ require("lazy").setup({
 					Snacks.picker.grep_word()
 				end,
 				desc = "[S]earch [W]ord",
-			},
-			{
-				"<leader>sp",
-				function()
-					Snacks.picker.projects()
-				end,
-				desc = "[S]earch [P]rojects",
 			},
 			{
 				"<leader>gs",
@@ -566,12 +542,6 @@ require("lazy").setup({
 			vim.cmd.colorscheme("gruvbox-material")
 		end,
 	},
-	{ -- Highlight todo, notes, etc in comments
-		"folke/todo-comments.nvim",
-		event = "VimEnter",
-		dependencies = { "nvim-lua/plenary.nvim" },
-		opts = { signs = false },
-	},
 	{ -- Collection of various small independent plugins/modules
 		"echasnovski/mini.nvim",
 		config = function()
@@ -616,15 +586,10 @@ require("lazy").setup({
 				"diff",
 				"git_rebase",
 				"gitcommit",
-				"go",
 				"html",
-				"javascript",
 				"lua",
 				"markdown",
 				"markdown_inline",
-				"ruby",
-				"sql",
-				"typescript",
 				"vim",
 			},
 			auto_install = true,
@@ -725,5 +690,23 @@ require("lazy").setup({
 				{ noremap = true, desc = "Toggle [C]ode [A]gent" }
 			)
 		end,
+	},
+	{
+		"christoomey/vim-tmux-navigator",
+		cmd = {
+			"TmuxNavigateLeft",
+			"TmuxNavigateDown",
+			"TmuxNavigateUp",
+			"TmuxNavigateRight",
+			"TmuxNavigatePrevious",
+			"TmuxNavigatorProcessList",
+		},
+		keys = {
+			{ "<c-h>", "<cmd><C-U>TmuxNavigateLeft<cr>" },
+			{ "<c-j>", "<cmd><C-U>TmuxNavigateDown<cr>" },
+			{ "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>" },
+			{ "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
+			{ "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
+		},
 	},
 })

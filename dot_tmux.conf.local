@@ -164,6 +164,8 @@ set -g @plugin 'tmux-plugins/tmux-logging'
 set -g @plugin 'egel/tmux-gruvbox'
 set -g @tmux-gruvbox 'dark'
 
+set -g @plugin 'christoomey/vim-tmux-navigator'
+
 # -- custom variables ----------------------------------------------------------
 
 # to define a custom #{foo} variable, define a POSIX shell function between the
