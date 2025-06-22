@@ -1,5 +1,3 @@
-export XDG_CONFIG_HOME="$HOME/.config"
-
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -77,9 +75,6 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 
-# mise, because some binaries are from go
-eval "$(mise activate zsh)"
-
 # zsh-vi-mode configuration
 function zvm_config() {
   ZVM_INIT_MODE=sourcing
@@ -90,9 +85,11 @@ function zvm_after_init() {
 }
 
 plugins=(
+	mise
+	you-should-use
 	z
-	zsh-vi-mode
 	zsh-syntax-highlighting
+	zsh-vi-mode
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -108,15 +105,6 @@ export LC_CTYPE="en_US.UTF-8"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
-
-# Disable Homebrew auto update
-export HOMEBREW_NO_AUTO_UPDATE=1
-
-# nvim
-export PATH="$PATH:/opt/nvim/bin"
-
-# libpq
-export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 
 # Git
 export GIT_EDITOR=vim
@@ -159,4 +147,4 @@ git config --global alias.rage 'reset --hard HEAD' # git rage
 alias k='kubectl'
 
 # local credentials
-[[ -f ~/.local.env ]] && source ~/.local.env
+[[ -f ~/.env.local ]] && source ~/.env.local
