@@ -173,7 +173,17 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-	{ "folke/lazydev.nvim", opts = {} },
+	{
+		"folke/lazydev.nvim",
+		ft = "lua",
+		opts = {
+			library = {
+				-- See the configuration section for more details
+				-- Load luvit types when the `vim.uv` word is found
+				{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
+			},
+		},
+	},
 	{ "numToStr/Comment.nvim", opts = {} },
 	{
 		"lewis6991/gitsigns.nvim",
@@ -272,6 +282,20 @@ require("lazy").setup({
 				desc = "[S]earch [D]iagnostic",
 			},
 			{
+				"<leader>sh",
+				function()
+					Snacks.picker.help()
+				end,
+				desc = "[S]earch [H]elp",
+			},
+			{
+				"<leader>sk",
+				function()
+					Snacks.picker.keymaps()
+				end,
+				desc = "[S]earch [K]keymaps",
+			},
+			{
 				"<leader>sg",
 				function()
 					Snacks.picker.grep()
@@ -320,6 +344,13 @@ require("lazy").setup({
 					Snacks.picker.lsp_implementations()
 				end,
 				desc = "[G]oto [I]mplementation",
+			},
+			{
+				"gT",
+				function()
+					Snacks.picker.lsp_type_definitions()
+				end,
+				desc = "Goto [T]ype Definition",
 			},
 			{
 				"<leader>ws",
@@ -524,7 +555,10 @@ require("lazy").setup({
 		"saghen/blink.cmp",
 		dependencies = { "rafamadriz/friendly-snippets" },
 		version = "*",
+		--- @module 'blink.cmp'
+		--- @type blink.cmp.Config
 		opts = {
+			signature = { enabled = true },
 			keymap = {
 				preset = "enter",
 			},
@@ -536,22 +570,16 @@ require("lazy").setup({
 				},
 				documentation = {
 					auto_show = true,
-					auto_show_delay_ms = 0,
+					auto_show_delay_ms = 100,
 				},
 			},
 			appearance = {
 				nerd_font_variant = "mono",
 			},
 			sources = {
-				default = { "lsp", "path", "snippets", "buffer" },
+				default = { "lsp", "path", "snippets", "buffer", "lazydev" },
 				providers = {
-					snippets = {
-						opts = {
-							extended_filetypes = {
-								ruby = { "rails" },
-							},
-						},
-					},
+					lazydev = { module = "lazydev.integrations.blink", score_offset = 100 },
 				},
 			},
 		},
