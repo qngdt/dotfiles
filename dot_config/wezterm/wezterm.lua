@@ -192,11 +192,19 @@ config.keys = {
 		}),
 	},
 	{
-		key = "|",
-		mods = "SUPER|SHIFT",
+		key = "p",
+		mods = "SUPER",
 		action = wezterm.action.Multiple({
 			wezterm.action.SendKey({ key = "a", mods = "CTRL" }),
-			wezterm.action.SendKey({ key = "Tab" }),
+			wezterm.action.SendKey({ key = "p" }),
+		}),
+	},
+	{
+		key = "l",
+		mods = "SUPER",
+		action = wezterm.action.Multiple({
+			wezterm.action.SendKey({ key = "a", mods = "CTRL" }),
+			wezterm.action.SendKey({ key = "l" }),
 		}),
 	},
 }

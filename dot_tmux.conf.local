@@ -114,6 +114,19 @@ set -g mouse on
 # move status line to top
 #set -g status-position top
 
+# custom keymaps
+
+bind p display-popup \
+	-d "#{pane_current_path}" \
+	-w 80% \
+	-h 80% \
+
+bind l display-popup \
+	-d "#{pane_current_path}" \
+	-w 90% \
+	-h 90% \
+	-E "lazygit"
+
 
 # -- tpm -----------------------------------------------------------------------
 
