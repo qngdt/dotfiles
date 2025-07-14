@@ -200,11 +200,11 @@ config.keys = {
 		}),
 	},
 	{
-		key = "l",
+		key = "g",
 		mods = "SUPER",
 		action = wezterm.action.Multiple({
 			wezterm.action.SendKey({ key = "a", mods = "CTRL" }),
-			wezterm.action.SendKey({ key = "l" }),
+			wezterm.action.SendKey({ key = "g" }),
 		}),
 	},
 }

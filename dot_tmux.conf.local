@@ -121,7 +121,7 @@ bind p display-popup \
 	-w 80% \
 	-h 80% \
 
-bind l display-popup \
+bind g display-popup \
 	-d "#{pane_current_path}" \
 	-w 90% \
 	-h 90% \
