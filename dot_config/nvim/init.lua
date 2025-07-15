@@ -59,6 +59,8 @@ vim.opt.inccommand = "split"
 
 -- Show which line your cursor is on
 vim.opt.cursorline = true
+vim.opt.cursorcolumn = true
+vim.opt.cursorlineopt = "screenline"
 
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 15
@@ -69,12 +71,12 @@ vim.opt.termguicolors = true
 -- Indentation size
 vim.opt.shiftwidth = 2
 vim.opt.tabstop = 2
+vim.opt.autoindent = true
+vim.opt.copyindent = true
+vim.opt.breakindent = true
 
 -- Line wrap
-vim.opt.textwidth = 120
-vim.opt.wrapmargin = 0
-vim.opt.wrap = true
-vim.opt.linebreak = true
+vim.opt.wrap = false
 
 -- Folding
 vim.opt.foldmethod = "expr"
@@ -236,7 +238,6 @@ require("lazy").setup({
 		---@type snacks.Config
 		opts = {
 			statuscolumn = { enabled = true },
-			lazygit = { enabled = true },
 			explorer = { enabled = true },
 			indent = { enabled = true },
 			picker = {
@@ -365,13 +366,6 @@ require("lazy").setup({
 					Snacks.explorer()
 				end,
 				desc = "[E]xplore [F]iles",
-			},
-			{
-				"<leader>lg",
-				function()
-					Snacks.lazygit()
-				end,
-				desc = "[L]azy [G]it",
 			},
 		},
 	},
