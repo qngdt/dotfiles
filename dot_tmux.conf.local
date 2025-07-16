@@ -68,7 +68,7 @@ tmux_conf_new_pane_reconnect_ssh=false
 # to 'truecolor' or '24bit' or '$ tput colors' answering '16777216'
 # see https://github.com/termstandard/colors
 tmux_conf_24b_colour=auto
-
+set -ga terminal-overrides ",*256color*:Tc"
 
 # -- theming -------------------------------------------------------------------
 
