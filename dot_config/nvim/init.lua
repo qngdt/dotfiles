@@ -76,7 +76,8 @@ vim.opt.copyindent = true
 vim.opt.breakindent = true
 
 -- Line wrap
-vim.opt.wrap = false
+vim.opt.wrap = true
+vim.opt.linebreak = true
 
 -- Folding
 vim.opt.foldmethod = "expr"
