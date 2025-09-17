@@ -715,35 +715,6 @@ require("lazy").setup({
 		ft = { "markdown" },
 	},
 	{
-		"olimorris/codecompanion.nvim",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"nvim-treesitter/nvim-treesitter",
-		},
-		opts = {
-			strategies = {
-				chat = {
-					adapter = "gemini",
-				},
-				inline = {
-					adapter = "gemini",
-				},
-				cmd = {
-					adapter = "gemini",
-				},
-			},
-		},
-		config = function(_, opts)
-			require("codecompanion").setup(opts)
-			vim.keymap.set(
-				"n",
-				"<leader>ca",
-				require("codecompanion").toggle,
-				{ noremap = true, desc = "Toggle [C]ode [A]gent" }
-			)
-		end,
-	},
-	{
 		"christoomey/vim-tmux-navigator",
 		cmd = {
 			"TmuxNavigateLeft",

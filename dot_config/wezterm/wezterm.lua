@@ -21,7 +21,7 @@ config.color_scheme = "Gruvbox Material (Gogh)"
 
 -- Font
 config.font = wezterm.font("JetBrains Mono", { weight = "DemiBold" })
-config.font_size = 17
+config.font_size = 20
 
 -- Keymaps
 config.disable_default_key_bindings = true
