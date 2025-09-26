@@ -516,8 +516,8 @@ require("lazy").setup({
 			end,
 			formatters_by_ft = {
 				lua = { "stylua" },
-				javascript = { "prettier" },
-				typescript = { "prettier" },
+				javascript = { "biome", "prettier" },
+				typescript = { "biome", "prettier" },
 				python = { "ruff_fix", "ruff_format", "ruff_organize_imports" },
 				go = { "gofumpt" },
 			},
