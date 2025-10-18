@@ -189,49 +189,6 @@ require("lazy").setup({
 	},
 	{ "numToStr/Comment.nvim", opts = {} },
 	{
-		"lewis6991/gitsigns.nvim",
-		opts = {
-			signs = {
-				add = { text = "+" },
-				change = { text = "~" },
-				delete = { text = "_" },
-				topdelete = { text = "‾" },
-				changedelete = { text = "~" },
-			},
-			on_attach = function(bufnr)
-				local gitsigns = require("gitsigns")
-
-				local function map(mode, l, r, opts)
-					opts = opts or {}
-					opts.buffer = bufnr
-					vim.keymap.set(mode, l, r, opts)
-				end
-
-				-- Navigation
-				map("n", "]g", function()
-					if vim.wo.diff then
-						vim.cmd.normal({ "]g", bang = true })
-					else
-						gitsigns.nav_hunk("next")
-					end
-				end, { desc = "Jump to next [g]it change" })
-
-				map("n", "[g", function()
-					if vim.wo.diff then
-						vim.cmd.normal({ "[g", bang = true })
-					else
-						gitsigns.nav_hunk("prev")
-					end
-				end, { desc = "Jump to previous [g]it change" })
-
-				-- Actions
-				-- normal mode
-				map("n", "<leader>gb", gitsigns.blame_line, { desc = "[G]it [B]lame line" })
-				map("n", "<leader>tb", gitsigns.toggle_current_line_blame, { desc = "[T]oggle Git [B]lame line" })
-			end,
-		},
-	},
-	{
 		"folke/snacks.nvim",
 		priority = 1000,
 		lazy = false,
@@ -595,7 +552,7 @@ require("lazy").setup({
 		end,
 	},
 	{ -- Collection of various small independent plugins/modules
-		"echasnovski/mini.nvim",
+		"nvim-mini/mini.nvim",
 		config = function()
 			require("mini.ai").setup()
 
@@ -605,6 +562,24 @@ require("lazy").setup({
 			statusline.setup({ use_icons = vim.g.have_nerd_font })
 
 			require("mini.pairs").setup()
+
+			require("mini.diff").setup({
+				view = {
+					style = "sign",
+				},
+				mappings = {
+					goto_first = "[G",
+					goto_prev = "[g",
+					goto_next = "]g",
+					goto_last = "]G",
+				},
+			})
+			vim.keymap.set(
+				"n",
+				"<leader>go",
+				MiniDiff.toggle_overlay,
+				{ noremap = true, desc = "Toggle [G]it [O]verlay" }
+			)
 
 			require("mini.files").setup({
 				mappings = {
