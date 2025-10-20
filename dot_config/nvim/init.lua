@@ -324,6 +324,13 @@ require("lazy").setup({
 				end,
 				desc = "[E]xplore [F]iles",
 			},
+			{
+				"<leader>w",
+				function()
+					Snacks.bufdelete()
+				end,
+				desc = "Delete buffer",
+			},
 		},
 	},
 
@@ -602,6 +609,8 @@ require("lazy").setup({
 					hex_color = hipatterns.gen_highlighter.hex_color(),
 				},
 			})
+
+			require("mini.bufremove").setup()
 
 			require("mini.files").setup({
 				mappings = {
