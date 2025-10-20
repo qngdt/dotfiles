@@ -187,7 +187,6 @@ require("lazy").setup({
 			},
 		},
 	},
-	{ "numToStr/Comment.nvim", opts = {} },
 	{
 		"folke/snacks.nvim",
 		priority = 1000,
@@ -334,7 +333,6 @@ require("lazy").setup({
 			{ "mason-org/mason.nvim", opts = {} },
 			"williamboman/mason-lspconfig.nvim",
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
-			{ "j-hui/fidget.nvim", opts = {} },
 			"saghen/blink.cmp",
 		},
 		config = function()
@@ -505,7 +503,6 @@ require("lazy").setup({
 
 	{
 		"saghen/blink.cmp",
-		dependencies = { "rafamadriz/friendly-snippets" },
 		version = "*",
 		--- @module 'blink.cmp'
 		--- @type blink.cmp.Config
@@ -529,7 +526,10 @@ require("lazy").setup({
 				nerd_font_variant = "mono",
 			},
 			sources = {
-				default = { "lsp", "path", "snippets", "buffer", "lazydev" },
+				default = { "lsp", "path", "snippets", "buffer" },
+				per_filetype = {
+					lua = { inherit_defaults = true, "lazydev" },
+				},
 				providers = {
 					lazydev = { module = "lazydev.integrations.blink", score_offset = 100 },
 				},
@@ -580,6 +580,14 @@ require("lazy").setup({
 				MiniDiff.toggle_overlay,
 				{ noremap = true, desc = "Toggle [G]it [O]verlay" }
 			)
+
+			require("mini.comment").setup()
+
+			require("mini.notify").setup()
+
+			require("mini.trailspace").setup()
+
+			require("mini.surround").setup()
 
 			require("mini.files").setup({
 				mappings = {
@@ -671,14 +679,6 @@ require("lazy").setup({
 		config = function(_, opts)
 			require("nvim-treesitter.install").prefer_git = true
 			require("nvim-treesitter.configs").setup(opts)
-		end,
-	},
-	{
-		"kylechui/nvim-surround",
-		version = "*", -- use for stability; omit to use `main` branch for the latest features
-		event = "VeryLazy",
-		config = function()
-			require("nvim-surround").setup()
 		end,
 	},
 	{
