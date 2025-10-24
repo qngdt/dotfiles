@@ -562,17 +562,23 @@ require("lazy").setup({
 		"nvim-mini/mini.nvim",
 		config = function()
 			require("mini.ai").setup()
-
 			require("mini.icons").setup()
+			require("mini.comment").setup()
+			require("mini.notify").setup()
+			require("mini.trailspace").setup()
+			require("mini.surround").setup()
+			require("mini.tabline").setup()
+			require("mini.bufremove").setup()
+			require("mini.pairs").setup()
+			require("mini.git").setup()
 
 			local statusline = require("mini.statusline")
 			statusline.setup({ use_icons = vim.g.have_nerd_font })
 
-			require("mini.pairs").setup()
-
 			require("mini.diff").setup({
 				view = {
 					style = "sign",
+					signs = { add = "+", change = "~", delete = "-" },
 				},
 				mappings = {
 					goto_first = "[G",
@@ -581,22 +587,13 @@ require("lazy").setup({
 					goto_last = "]G",
 				},
 			})
+
 			vim.keymap.set(
 				"n",
 				"<leader>go",
 				MiniDiff.toggle_overlay,
 				{ noremap = true, desc = "Toggle [G]it [O]verlay" }
 			)
-
-			require("mini.comment").setup()
-
-			require("mini.notify").setup()
-
-			require("mini.trailspace").setup()
-
-			require("mini.surround").setup()
-
-			require("mini.tabline").setup()
 
 			local hipatterns = require("mini.hipatterns")
 			hipatterns.setup({
@@ -609,8 +606,6 @@ require("lazy").setup({
 					hex_color = hipatterns.gen_highlighter.hex_color(),
 				},
 			})
-
-			require("mini.bufremove").setup()
 
 			require("mini.files").setup({
 				mappings = {
