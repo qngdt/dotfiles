@@ -21,7 +21,11 @@ config.color_scheme = "Gruvbox Material (Gogh)"
 
 -- Font
 config.font = wezterm.font("JetBrains Mono", { weight = "DemiBold" })
-config.font_size = 20
+config.font = wezterm.font_with_fallback({
+	{ family = "Iosevka", weight = "Medium" },
+	{ family = "JetBrains Mono", weight = "DemiBold" },
+})
+config.font_size = 16
 
 -- Keymaps
 config.disable_default_key_bindings = true
