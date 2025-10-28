@@ -194,9 +194,14 @@ require("lazy").setup({
 		---@module "snacks"
 		---@type snacks.Config
 		opts = {
-			statuscolumn = { enabled = true },
-			explorer = { enabled = true },
-			indent = { enabled = true },
+			explorer = {},
+			git = {},
+			gitbrowse = {
+				open = function(url)
+					vim.fn.setreg("+", url)
+				end,
+			},
+			indent = {},
 			picker = {
 				matcher = {
 					frecency = true,
@@ -212,6 +217,7 @@ require("lazy").setup({
 					},
 				},
 			},
+			statuscolumn = {},
 		},
 		keys = {
 			{
@@ -332,6 +338,17 @@ require("lazy").setup({
 				desc = "Delete buffer",
 			},
 		},
+		init = function()
+			vim.api.nvim_create_user_command("GitBlame", function()
+				Snacks.git.blame_line()
+			end, { desc = "Git Blame" })
+			vim.api.nvim_create_user_command("GitCopy", function(opts)
+				Snacks.gitbrowse.open({
+					line_start = opts.line1,
+					line_end = opts.line2,
+				})
+			end, { desc = "Git Copy Remote URL", range = true })
+		end,
 	},
 
 	{ -- LSP Configuration & Plugins
@@ -570,7 +587,6 @@ require("lazy").setup({
 			require("mini.tabline").setup()
 			require("mini.bufremove").setup()
 			require("mini.pairs").setup()
-			require("mini.git").setup()
 
 			local statusline = require("mini.statusline")
 			statusline.setup({ use_icons = vim.g.have_nerd_font })
