@@ -346,8 +346,9 @@ require("lazy").setup({
 				Snacks.gitbrowse.open({
 					line_start = opts.line1,
 					line_end = opts.line2,
+					branch = opts.args ~= "" and opts.args or nil,
 				})
-			end, { desc = "Git Copy Remote URL", range = true })
+			end, { desc = "Git Copy Remote URL", range = true, nargs = "?" })
 		end,
 	},
 
