@@ -20,9 +20,8 @@ config.window_padding = {
 config.color_scheme = "Gruvbox Material (Gogh)"
 
 -- Font
-config.font = wezterm.font("JetBrains Mono", { weight = "DemiBold" })
 config.font = wezterm.font_with_fallback({
-	{ family = "Iosevka", weight = "Medium" },
+	{ family = "Iosevka Nerd Font", weight = "Medium" },
 	{ family = "JetBrains Mono", weight = "DemiBold" },
 })
 config.font_size = 16
