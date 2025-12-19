@@ -196,11 +196,7 @@ require("lazy").setup({
 		opts = {
 			explorer = {},
 			git = {},
-			gitbrowse = {
-				open = function(url)
-					vim.fn.setreg("+", url)
-				end,
-			},
+			gitbrowse = {},
 			indent = {},
 			picker = {
 				matcher = {
@@ -317,13 +313,6 @@ require("lazy").setup({
 				desc = "Goto [T]ype Definition",
 			},
 			{
-				"<leader>ws",
-				function()
-					Snacks.picker.lsp_workspace_symbols()
-				end,
-				desc = "LSP [W]orkspace [S]ymbols",
-			},
-			{
 				"<leader>ef",
 				function()
 					Snacks.explorer()
@@ -346,9 +335,11 @@ require("lazy").setup({
 				Snacks.gitbrowse.open({
 					line_start = opts.line1,
 					line_end = opts.line2,
-					branch = opts.args ~= "" and opts.args or nil,
 				})
 			end, { desc = "Git Copy Remote URL", range = true, nargs = "?" })
+			vim.api.nvim_create_user_command("CloseOther", function()
+				Snacks.bufdelete.other()
+			end, { desc = "Close all other buffers" })
 		end,
 	},
 
