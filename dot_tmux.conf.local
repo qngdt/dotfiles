@@ -114,6 +114,11 @@ set -g mouse on
 # move status line to top
 #set -g status-position top
 
+# Automatically rename window to current directory
+set-option -g automatic-rename on
+set-option -g automatic-rename-format '#{=20:#{b:pane_current_path}}#{?#{==:#{pane_current_command},zsh},,: #{pane_current_command}}'
+
+
 # custom keymaps
 
 bind p display-popup \

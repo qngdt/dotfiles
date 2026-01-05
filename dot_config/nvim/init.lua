@@ -118,6 +118,8 @@ vim.keymap.set(
 	":b#<CR>",
 	{ desc = "Switch to the previous buffer", noremap = true, silent = true }
 )
+vim.keymap.set('n', '<Tab>', ':bnext<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<S-Tab>', ':bprevious<CR>', { noremap = true, silent = true })
 
 -- Diagnostic keymaps
 vim.keymap.set("n", "<leader>em", vim.diagnostic.open_float, { desc = "Show diagnostic [E]rror [M]essages" })
@@ -732,5 +734,9 @@ require("lazy").setup({
 			{ "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
 			{ "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
 		},
+	},
+	{
+		"sphamba/smear-cursor.nvim",
+		opts = {},
 	},
 })
