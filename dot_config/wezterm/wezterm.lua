@@ -171,6 +171,14 @@ config.keys = {
 		}),
 	},
 	{
+		key = "W",
+		mods = "SUPER",
+		action = wezterm.action.Multiple({
+			wezterm.action.SendKey({ key = "a", mods = "CTRL" }),
+			wezterm.action.SendKey({ key = "&" }),
+		}),
+	},
+	{
 		key = "f",
 		mods = "SUPER",
 		action = wezterm.action.Multiple({
