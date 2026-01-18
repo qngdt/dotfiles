@@ -118,8 +118,8 @@ vim.keymap.set(
 	":b#<CR>",
 	{ desc = "Switch to the previous buffer", noremap = true, silent = true }
 )
-vim.keymap.set('n', '<Tab>', ':bnext<CR>', { noremap = true, silent = true })
-vim.keymap.set('n', '<S-Tab>', ':bprevious<CR>', { noremap = true, silent = true })
+vim.keymap.set("n", "<Tab>", ":bnext<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<S-Tab>", ":bprevious<CR>", { noremap = true, silent = true })
 
 -- Diagnostic keymaps
 vim.keymap.set("n", "<leader>em", vim.diagnostic.open_float, { desc = "Show diagnostic [E]rror [M]essages" })
@@ -327,6 +327,53 @@ require("lazy").setup({
 					Snacks.bufdelete()
 				end,
 				desc = "Delete buffer",
+			},
+			{
+				"<leader>gw",
+				function()
+					local lines = vim.fn.systemlist("git worktree list")
+					if vim.v.shell_error ~= 0 then
+						return vim.notify("Not in a git repository", vim.log.levels.ERROR)
+					end
+
+					local items = {}
+					for idx, line in ipairs(lines) do
+						local path, branch = line:match("^(%S+)%s+%S+%s+%[(.-)%]")
+						if path then
+							items[#items + 1] = { idx = idx, text = branch, path = path, branch = branch }
+						end
+					end
+
+					table.sort(items, function(a, b)
+						if a.path == vim.fn.getcwd() then
+							return true
+						end
+						if b.path == vim.fn.getcwd() then
+							return false
+						end
+						return a.idx < b.idx
+					end)
+
+					Snacks.picker.pick({
+						title = "Worktrees",
+						items = items,
+						layout = {
+							preset = "vscode",
+						},
+						format = function(item)
+							local current = item.path == vim.fn.getcwd()
+							return {
+								{ current and "* " or "  ", current and "DiagnosticOk" or "Comment" },
+								{ item.branch, current and "DiagnosticOk" or "Title" },
+							}
+						end,
+						confirm = function(picker, item)
+							picker:close()
+							vim.fn.chdir(item.path)
+						end,
+					})
+				end,
+				{ desc = "Git Worktrees" },
 			},
 		},
 		init = function()
