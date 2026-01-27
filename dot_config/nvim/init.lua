@@ -340,7 +340,7 @@ require("lazy").setup({
 					for idx, line in ipairs(lines) do
 						local path, branch = line:match("^(%S+)%s+%S+%s+%[(.-)%]")
 						if path then
-							items[#items + 1] = { idx = idx, text = branch, path = path, branch = branch }
+							items[#items + 1] = { idx = idx, text = path, path = path, branch = branch }
 						end
 					end
 
@@ -369,6 +369,12 @@ require("lazy").setup({
 						end,
 						confirm = function(picker, item)
 							picker:close()
+							-- Close all buffers before switching worktrees
+							for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+								if vim.api.nvim_buf_is_loaded(buf) and vim.bo[buf].buflisted then
+									vim.api.nvim_buf_delete(buf, { force = true })
+								end
+							end
 							vim.fn.chdir(item.path)
 						end,
 					})
@@ -627,7 +633,6 @@ require("lazy").setup({
 			require("mini.surround").setup()
 			require("mini.tabline").setup()
 			require("mini.bufremove").setup()
-			require("mini.pairs").setup()
 
 			local statusline = require("mini.statusline")
 			statusline.setup({ use_icons = vim.g.have_nerd_font })
