@@ -67,6 +67,7 @@ vim.opt.scrolloff = 15
 
 -- Enable 24-bit colour
 vim.opt.termguicolors = true
+vim.cmd.colorscheme("retrobox")
 
 -- Indentation size
 vim.opt.shiftwidth = 2
@@ -85,6 +86,10 @@ vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.opt.foldtext = ""
 vim.opt.foldlevel = 99
 vim.opt.foldnestmax = 4
+
+-- Theme
+vim.o.background = "light"
+vim.cmd.colorscheme("retrobox")
 
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
@@ -608,20 +613,6 @@ require("lazy").setup({
 		},
 	},
 
-	{ -- Theme
-		"sainnhe/gruvbox-material",
-		priority = 1000,
-		config = function()
-			vim.g.gruvbox_material_dim_inactive_windows = 1
-			vim.g.gruvbox_material_cursor = "red"
-			vim.g.gruvbox_material_enable_bold = 1
-			vim.g.gruvbox_material_background = "hard"
-			vim.g.gruvbox_material_better_performance = 1
-			vim.g.gruvbox_material_enable_italic = true
-			vim.o.background = "light"
-			vim.cmd.colorscheme("gruvbox-material")
-		end,
-	},
 	{ -- Collection of various small independent plugins/modules
 		"nvim-mini/mini.nvim",
 		config = function()
