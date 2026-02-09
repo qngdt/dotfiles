@@ -67,7 +67,6 @@ vim.opt.scrolloff = 15
 
 -- Enable 24-bit colour
 vim.opt.termguicolors = true
-vim.cmd.colorscheme("retrobox")
 
 -- Indentation size
 vim.opt.shiftwidth = 2
@@ -86,10 +85,6 @@ vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.opt.foldtext = ""
 vim.opt.foldlevel = 99
 vim.opt.foldnestmax = 4
-
--- Theme
-vim.o.background = "light"
-vim.cmd.colorscheme("retrobox")
 
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
@@ -128,17 +123,17 @@ vim.keymap.set("n", "<S-Tab>", ":bprevious<CR>", { noremap = true, silent = true
 
 -- Diagnostic Config & Keymaps
 -- See :help vim.diagnostic.Opts
-vim.diagnostic.config {
-  update_in_insert = false,
-  severity_sort = true,
-  float = { border = 'rounded', source = 'if_many' },
-  underline = { severity = vim.diagnostic.severity.ERROR },
+vim.diagnostic.config({
+	update_in_insert = false,
+	severity_sort = true,
+	float = { border = "rounded", source = "if_many" },
+	underline = { severity = vim.diagnostic.severity.ERROR },
 
-  virtual_text = true,
-  virtual_lines = false,
+	virtual_text = true,
+	virtual_lines = false,
 
-  jump = { float = true },
-}
+	jump = { float = true },
+})
 vim.keymap.set("n", "<leader>em", vim.diagnostic.open_float, { desc = "Show diagnostic [E]rror [M]essages" })
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setqflist, { desc = "Open diagnostic [Q]uickfix list" })
 
@@ -594,6 +589,20 @@ require("lazy").setup({
 				},
 			},
 		},
+	},
+
+	{ -- Theme
+		"sainnhe/gruvbox-material",
+		priority = 1000,
+		config = function()
+			vim.g.gruvbox_material_dim_inactive_windows = 1
+			vim.g.gruvbox_material_enable_bold = 1
+			vim.g.gruvbox_material_background = "hard"
+			vim.g.gruvbox_material_better_performance = 1
+			vim.g.gruvbox_material_enable_italic = true
+			vim.o.background = "light"
+			vim.cmd.colorscheme("gruvbox-material")
+		end,
 	},
 
 	{ -- Collection of various small independent plugins/modules
