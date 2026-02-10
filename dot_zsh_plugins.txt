@@ -1,0 +1,20 @@
+# .zsh_plugins.txt - antidote plugins file
+
+# Completions (must be early, before compdef calls)
+mattmc3/ez-compinit
+zsh-users/zsh-completions kind:fpath path:src
+
+# Prompt
+romkatv/powerlevel10k
+
+# Vi mode
+jeffreytse/zsh-vi-mode
+
+# Directory jumping (native Zsh, faster than rupa/z)
+agkozak/zsh-z
+
+# Alias reminder
+MichaelAquilina/zsh-you-should-use
+
+# Syntax highlighting (MUST be last - faster than zsh-syntax-highlighting)
+zdharma-continuum/fast-syntax-highlighting
