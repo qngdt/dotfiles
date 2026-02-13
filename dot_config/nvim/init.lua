@@ -609,13 +609,14 @@ require("lazy").setup({
 		"nvim-mini/mini.nvim",
 		config = function()
 			require("mini.ai").setup()
-			require("mini.icons").setup()
+			require("mini.bufremove").setup()
 			require("mini.comment").setup()
+			require("mini.icons").setup()
 			require("mini.notify").setup()
-			require("mini.trailspace").setup()
+			require("mini.pairs").setup()
 			require("mini.surround").setup()
 			require("mini.tabline").setup()
-			require("mini.bufremove").setup()
+			require("mini.trailspace").setup()
 
 			local statusline = require("mini.statusline")
 			statusline.setup({ use_icons = vim.g.have_nerd_font })
