@@ -5,7 +5,7 @@ window-padding-y = 0
 background-opacity = 0.90
 
 # Theme
-theme = Gruvbox Material
+theme = Gruvbox Material Dark
 
 # Font
 font-family = Iosevka Nerd Font

@@ -62,6 +62,9 @@ vim.opt.cursorline = true
 vim.opt.cursorcolumn = true
 vim.opt.cursorlineopt = "screenline"
 
+-- Cursor
+vim.opt.guicursor = "n-v-c:block-blinkon150-blinkoff150,i-ci-ve:ver50-blinkon150-blinkoff150,r-cr:hor20-blinkon150-blinkoff150,o:hor50"
+
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 15
 
