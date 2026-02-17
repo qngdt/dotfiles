@@ -1,0 +1,49 @@
+# Window
+macos-titlebar-style = hidden
+window-padding-x = 0
+window-padding-y = 0
+background-opacity = 0.90
+
+# Theme
+theme = Gruvbox Material
+
+# Font
+font-family = Iosevka Nerd Font
+font-family = JetBrains Mono
+font-style = Medium
+font-size = 14
+
+# Tmux keybindings (prefix = Ctrl+a = \x01)
+
+# Window selection (1-9)
+keybind = super+digit_1=text:\x011
+keybind = super+digit_2=text:\x012
+keybind = super+digit_3=text:\x013
+keybind = super+digit_4=text:\x014
+keybind = super+digit_5=text:\x015
+keybind = super+digit_6=text:\x016
+keybind = super+digit_7=text:\x017
+keybind = super+digit_8=text:\x018
+keybind = super+digit_9=text:\x019
+
+# Window management
+keybind = super+t=text:\x01c
+keybind = super+w=text:\x01x
+keybind = super+shift+w=text:\x01&
+keybind = super+comma=text:\x01,
+keybind = super+shift+comma=text:\x01<
+keybind = super+shift+period=text:\x01>
+keybind = super+shift+bracket_left=text:\x01\x10
+keybind = super+shift+bracket_right=text:\x01\x0e
+
+# Splits
+keybind = super+n=text:\x01%
+keybind = super+shift+n=text:\x01"
+
+# Navigation
+keybind = super+p=text:\x01p
+keybind = super+g=text:\x01g
+keybind = super+f=text:\x01\x06
+
+# Session
+keybind = super+q=text:\x01d
