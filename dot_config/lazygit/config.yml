@@ -1,1 +1,4 @@
 confirmOnQuit: true
+git:
+  paging:
+    pager: delta --side-by-side --paging=never

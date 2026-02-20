@@ -3,6 +3,9 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+# XDG
+export XDG_CONFIG_HOME="$HOME/.config"
+
 # PATH
 export PATH="$HOME/.local/bin:$PATH"
 
@@ -56,6 +59,9 @@ alias gp='git pull'
 alias gst='git status'
 
 alias k='kubectl'
+
+# direnv
+eval "$(direnv hook zsh)"
 
 # Local credentials and config
 [[ -f ~/.env.local ]] && source ~/.env.local
