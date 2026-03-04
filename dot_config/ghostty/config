@@ -33,6 +33,8 @@ keybind = super+shift+w=text:\x01&
 keybind = super+comma=text:\x01,
 keybind = super+shift+comma=text:\x01<
 keybind = super+shift+period=text:\x01>
+keybind = super+bracket_left=text:\x01{
+keybind = super+bracket_right=text:\x01}
 keybind = super+shift+bracket_left=text:\x01\x10
 keybind = super+shift+bracket_right=text:\x01\x0e
 
@@ -43,6 +45,7 @@ keybind = super+shift+n=text:\x01"
 # Navigation
 keybind = super+p=text:\x01p
 keybind = super+g=text:\x01g
+keybind = super+e=text:\x01\x20
 keybind = super+f=text:\x01\x06
 
 # Session
