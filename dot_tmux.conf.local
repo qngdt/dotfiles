@@ -118,6 +118,8 @@ bind c new-window -a -c "#{pane_current_path}" #!important
 set-option -g automatic-rename on
 set-option -g automatic-rename-format '#{=20:#{b:pane_current_path}}#{?#{==:#{pane_current_command},zsh},,: #{pane_current_command}}'
 
+set -g extended-keys on
+set -g extended-keys-format csi-u
 
 # custom keymaps
 
@@ -130,8 +132,7 @@ bind g display-popup \
 	-d "#{pane_current_path}" \
 	-w 90% \
 	-h 90% \
-	-E "lazygit"
-
+	-E "lazygit --sm half"
 
 # -- tpm -----------------------------------------------------------------------
 
