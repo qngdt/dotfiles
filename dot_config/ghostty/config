@@ -2,7 +2,7 @@
 macos-titlebar-style = hidden
 window-padding-x = 0
 window-padding-y = 0
-background-opacity = 0.90
+background-opacity = 0.95
 
 # Theme
 theme = Gruvbox Material Dark
@@ -12,6 +12,15 @@ font-family = Iosevka Nerd Font
 font-family = JetBrains Mono
 font-style = Medium
 font-size = 14
+
+keybind = clear
+
+# Keep essentials
+keybind = super+v=paste_from_clipboard
+keybind = super+c=copy_to_clipboard
+keybind = super+plus=increase_font_size:1
+keybind = super+minus=decrease_font_size:1
+keybind = super+zero=reset_font_size
 
 # Tmux keybindings (prefix = Ctrl+a = \x01)
 
