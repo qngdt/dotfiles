@@ -114,9 +114,7 @@ bind c new-window -a -c "#{pane_current_path}" #!important
 # move status line to top
 #set -g status-position top
 
-# Automatically rename window to current directory
-set-option -g automatic-rename on
-set-option -g automatic-rename-format '#{=20:#{b:pane_current_path}}#{?#{==:#{pane_current_command},zsh},,: #{pane_current_command}}'
+set-option -g automatic-rename off
 
 set -g extended-keys on
 set -g extended-keys-format csi-u
