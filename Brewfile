@@ -1,6 +1,5 @@
 brew "chezmoi"
 brew "colima"
-brew "direnv"
 brew "docker"
 brew "fd"
 brew "git-delta"

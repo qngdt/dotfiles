@@ -1,10 +1,6 @@
-(( ${+commands[direnv]} )) && emulate zsh -c "$(direnv export zsh)"
-
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
-
-(( ${+commands[direnv]} )) && emulate zsh -c "$(direnv hook zsh)"
 
 # XDG
 export XDG_CONFIG_HOME="$HOME/.config"
@@ -62,9 +58,6 @@ alias gp='git pull'
 alias gst='git status'
 
 alias k='kubectl'
-
-# direnv
-eval "$(direnv hook zsh)"
 
 # Local credentials and config
 [[ -f ~/.env.local ]] && source ~/.env.local
