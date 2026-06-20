@@ -18,7 +18,7 @@ function zvm_after_init() {
 }
 
 # Load Antidote
-source /opt/homebrew/opt/antidote/share/antidote/antidote.zsh
+source $(brew --prefix)/opt/antidote/share/antidote/antidote.zsh
 antidote load
 
 # mise (version manager - not a zsh plugin)
