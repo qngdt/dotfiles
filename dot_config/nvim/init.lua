@@ -442,6 +442,7 @@ local servers = {
 	gopls = {},
 	ruff = {},
 	ruby_lsp = {},
+	rust_analyzer = {},
 }
 
 for server_name, server_opts in pairs(servers) do
@@ -475,10 +476,13 @@ require("conform").setup({
 	end,
 	formatters_by_ft = {
 		lua = { "stylua" },
-		javascript = { "biome", "prettier" },
-		typescript = { "biome", "prettier" },
-		python = { "ruff_fix", "ruff_format", "ruff_organize_imports" },
+		javascript = { "oxfmt" },
+		typescript = { "oxfmt" },
+		json = { "oxfmt" },
+		rust = { "rustfmt" },
+		python = { "ruff" },
 		go = { "gofumpt" },
+		ruby = { "rubocop" },
 	},
 })
 
