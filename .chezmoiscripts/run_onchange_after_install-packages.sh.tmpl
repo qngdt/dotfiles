@@ -1,0 +1,40 @@
+{{ if or (eq .chezmoi.os "darwin") (eq .chezmoi.os "linux") -}}
+#!/bin/sh
+
+set -eu
+
+# {{ include "dot_config/mise/config.toml" | sha256sum }}
+
+{{ if eq .chezmoi.os "darwin" -}}
+if ! command -v brew >/dev/null 2>&1; then
+    echo "Homebrew is required before applying these dotfiles." >&2
+    exit 1
+fi
+
+brew bundle --file=/dev/stdin <<'EOF'
+{{ range .packages.darwin.brews -}}
+brew {{ . | quote }}
+{{ end -}}
+{{ range .packages.darwin.casks -}}
+cask {{ . | quote }}
+{{ end -}}
+EOF
+{{ else if eq .chezmoi.os "linux" -}}
+if [ ! -r /etc/fedora-release ]; then
+    echo "Automatic package installation is currently supported on Fedora only." >&2
+    exit 0
+fi
+
+sudo dnf install -y{{ range .packages.fedora.dnf }} {{ . | quote }}{{ end }}
+
+if [ ! -d "$HOME/.antidote/.git" ]; then
+    git clone --depth=1 https://github.com/mattmc3/antidote.git "$HOME/.antidote"
+fi
+
+if ! command -v mise >/dev/null 2>&1; then
+    curl https://mise.run | sh
+fi
+MISE_BIN=$(command -v mise || printf '%s' "$HOME/.local/bin/mise")
+"$MISE_BIN" install
+{{ end -}}
+{{ end -}}

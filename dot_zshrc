@@ -8,21 +8,30 @@ export XDG_CONFIG_HOME="$HOME/.config"
 # PATH
 export PATH="$HOME/.local/bin:$PATH"
 
+if (( $+commands[mise] )); then
+  eval "$(mise activate zsh)"
+fi
+
 # zsh-vi-mode configuration (must be before loading plugins)
 function zvm_config() {
   ZVM_INIT_MODE=sourcing
   ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
 }
 function zvm_after_init() {
-  source <(fzf --zsh)
+  if (( $+commands[fzf] )); then
+    source <(fzf --zsh)
+  fi
 }
 
-# Load Antidote
-source $(brew --prefix)/opt/antidote/share/antidote/antidote.zsh
-antidote load
+if (( $+commands[brew] )); then
+  source "$(brew --prefix)/opt/antidote/share/antidote/antidote.zsh"
+elif [[ -r "$HOME/.antidote/antidote.zsh" ]]; then
+  source "$HOME/.antidote/antidote.zsh"
+fi
 
-# mise (version manager - not a zsh plugin)
-eval "$(mise activate zsh)"
+if (( $+functions[antidote] )); then
+  antidote load
+fi
 
 # Language/locale
 export LANG="en_US.UTF-8"

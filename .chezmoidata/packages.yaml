@@ -1,0 +1,27 @@
+packages:
+  darwin:
+    brews:
+      - antidote
+      - chezmoi
+      - colima
+      - docker
+      - gh
+      - mise
+      - neovim
+      - tmux
+      - tree-sitter-cli
+    casks:
+      - ghostty
+  fedora:
+    dnf:
+      - chezmoi
+      - curl
+      - gawk
+      - gh
+      - git
+      - ncurses
+      - neovim
+      - podman-docker
+      - tmux
+      - tree-sitter-cli
+      - zsh
