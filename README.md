@@ -40,7 +40,10 @@ chezmoi init --apply https://github.com/qngdt/dotfiles.git
 
 During `apply`, chezmoi will ask for sudo access and install the Fedora package
 set. Podman supplies the Docker-compatible CLI; no Colima VM is needed. Ghostty
-is intentionally not installed on Fedora yet.
+is intentionally not installed on Fedora yet. Vietnamese Telex input is
+provided by Fcitx5 Unikey. After applying, log out and back in, open **Fcitx 5
+Configuration**, add **Unikey** to the active input methods, and select **Telex**
+in its settings if it is not already selected.
 
 After installation, make Zsh the login shell and start a new login session:
 

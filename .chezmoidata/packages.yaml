@@ -19,6 +19,10 @@ packages:
       - gawk
       - gh
       - git
+      - fcitx5
+      - fcitx5-autostart
+      - fcitx5-configtool
+      - fcitx5-unikey
       - ncurses
       - neovim
       - podman-docker
