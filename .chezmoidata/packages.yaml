@@ -23,6 +23,7 @@ packages:
       - fcitx5-autostart
       - fcitx5-configtool
       - fcitx5-unikey
+      - ffmpeg
       - ncurses
       - neovim
       - podman-docker
