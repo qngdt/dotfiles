@@ -23,9 +23,8 @@ function zvm_after_init() {
   fi
 }
 
-if (( $+commands[brew] )); then
-  source "$(brew --prefix)/opt/antidote/share/antidote/antidote.zsh"
-elif [[ -r "$HOME/.antidote/antidote.zsh" ]]; then
+# antidote is cloned to ~/.antidote by chezmoi (see .chezmoiexternal.toml)
+if [[ -r "$HOME/.antidote/antidote.zsh" ]]; then
   source "$HOME/.antidote/antidote.zsh"
 fi
 

@@ -1,15 +1,8 @@
 packages:
   darwin:
     brews:
-      - antidote
       - chezmoi
-      - colima
-      - docker
-      - gh
       - mise
-      - neovim
-      - tmux
-      - tree-sitter-cli
     casks:
       - ghostty
   fedora:
@@ -17,7 +10,6 @@ packages:
       - chezmoi
       - curl
       - gawk
-      - gh
       - git
       - fcitx5
       - fcitx5-autostart
@@ -25,8 +17,5 @@ packages:
       - fcitx5-unikey
       - ffmpeg
       - ncurses
-      - neovim
       - podman-docker
-      - tmux
-      - tree-sitter-cli
       - zsh

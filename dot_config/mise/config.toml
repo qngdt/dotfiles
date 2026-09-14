@@ -1,9 +1,20 @@
 [tools]
+# The registry default for neovim is a vfox plugin that resolves versions through
+# the GitHub API. The aqua backend downloads the release tarball directly.
+"aqua:neovim/neovim" = "latest"
 delta = "latest"
 fd = "latest"
 fzf = "latest"
+gh = "latest"
 jq = "latest"
 lazydocker = "latest"
 lazygit = "latest"
 node = "lts"
 ripgrep = "latest"
+tmux = "latest"
+tree-sitter = "latest"
+
+# Container toolchain for macOS. Fedora uses podman-docker from dnf instead.
+colima = { version = "latest", os = ["macos"] }
+docker-cli = { version = "latest", os = ["macos"] }
+lima = { version = "latest", os = ["macos"] }

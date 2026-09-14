@@ -27,14 +27,10 @@ fi
 
 sudo dnf install -y{{ range .packages.fedora.dnf }} {{ . | quote }}{{ end }}
 
-if [ ! -d "$HOME/.antidote/.git" ]; then
-    git clone --depth=1 https://github.com/mattmc3/antidote.git "$HOME/.antidote"
-fi
-
 if ! command -v mise >/dev/null 2>&1; then
     curl https://mise.run | sh
 fi
+{{ end }}
 MISE_BIN=$(command -v mise || printf '%s' "$HOME/.local/bin/mise")
 "$MISE_BIN" install
-{{ end -}}
 {{ end -}}
