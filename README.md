@@ -42,9 +42,11 @@ During `apply`, chezmoi will ask for sudo access and install the Fedora package
 set, then install mise from <https://mise.run> and let it install the shared
 developer tools. Podman supplies the Docker-compatible CLI; no Colima VM is
 needed. Ghostty is intentionally not installed on Fedora yet. Vietnamese Telex
-input is provided by Fcitx5 Unikey. After applying, log out and back in, open
-**Fcitx 5 Configuration**, add **Unikey** to the active input methods, and
-select **Telex** in its settings if it is not already selected.
+input is provided by Fcitx5 Unikey, and Japanese input by Fcitx5 Mozc. After
+applying, log out and back in, open **Fcitx 5 Configuration**, and add **Unikey**
+and **Mozc** to the active input methods. Select **Telex** in Unikey's settings
+if it is not already selected; Mozc uses the Windows-style MS-IME keymap by
+default on Linux.
 
 After installation, make Zsh the login shell and start a new login session:
 

@@ -14,6 +14,7 @@ packages:
       - fcitx5
       - fcitx5-autostart
       - fcitx5-configtool
+      - fcitx5-mozc
       - fcitx5-unikey
       - ffmpeg
       - ncurses
