@@ -1,54 +1,43 @@
 # Dotfiles
 
-Personal shell and development environment managed by
-[chezmoi](https://www.chezmoi.io/). The same configuration supports macOS and
-Fedora Linux; package installation is selected automatically for each platform.
+Shell and development setup for macOS and Fedora, managed with [chezmoi](https://www.chezmoi.io/).
 
-## Fresh machine
+## Install
 
-The repository is public, so the initial checkout does not require GitHub SSH
-keys. An internet connection and `sudo` access are required.
+Requires internet access and `sudo`.
 
 ### macOS
 
-1. Install the Xcode command-line tools and Homebrew:
+Install Xcode tools and Homebrew, then follow Homebrew's instructions to add it to `PATH`:
 
-   ```sh
-   xcode-select --install
-   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-   ```
+```sh
+xcode-select --install
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
 
-2. Follow Homebrew's printed instructions to add `brew` to `PATH`, then install
-   chezmoi and apply the dotfiles:
+```sh
+brew install chezmoi
+chezmoi init --apply https://github.com/qngdt/dotfiles.git
+```
 
-   ```sh
-   brew install chezmoi
-   chezmoi init --apply https://github.com/qngdt/dotfiles.git
-   ```
+Includes Ghostty and the Colima/Docker toolchain.
 
-Homebrew then installs mise and the Ghostty cask. mise installs the rest of the
-developer tools, including Neovim, tmux, and the Colima/Docker CLI toolchain.
-
-### Fedora Linux
-
-Install the bootstrap dependencies and apply the repository:
+### Fedora
 
 ```sh
 sudo dnf install -y chezmoi git
 chezmoi init --apply https://github.com/qngdt/dotfiles.git
 ```
 
-During `apply`, chezmoi will ask for sudo access and install the Fedora package
-set, then install mise from <https://mise.run> and let it install the shared
-developer tools. Podman supplies the Docker-compatible CLI; no Colima VM is
-needed. Ghostty is intentionally not installed on Fedora yet. Vietnamese Telex
-input is provided by Fcitx5 Unikey, and Japanese input by Fcitx5 Mozc. After
-applying, log out and back in, open **Fcitx 5 Configuration**, and add **Unikey**
-and **Mozc** to the active input methods. Select **Telex** in Unikey's settings
-if it is not already selected; Mozc uses the Windows-style MS-IME keymap by
-default on Linux.
+Uses Podman for Docker-compatible commands. Ghostty requires separate installation.
 
-After installation, make Zsh the login shell and start a new login session:
+After logging out and back in, add **Unikey** (Telex) and **Mozc** in **Fcitx 5 Configuration** for Vietnamese and Japanese input.
+
+WebHID setup grants the active local user and their applications access to all current and future raw HID devices. Browser configurators still require website permission.
+
+### Set the shell
+
+On either platform, run this and start a new login session:
 
 ```sh
 zsh_path="$(command -v zsh)"
@@ -56,45 +45,22 @@ grep -qxF "$zsh_path" /etc/shells || printf '%s\n' "$zsh_path" | sudo tee -a /et
 chsh -s "$zsh_path"
 ```
 
-Antidote itself is checked out to `~/.antidote` as a chezmoi external, and the
-first Zsh startup downloads the configured plugins. `mise` installs the
-developer tools declared in `~/.config/mise/config.toml`; tools that only apply
-to one platform carry an `os` restriction there, everything else is installed
-identically on macOS and Fedora. Language runtimes belong in each project's
-`mise.toml`.
-
-## Day-to-day use
-
-Pull the latest repository changes and apply them with:
+## Maintain
 
 ```sh
-chezmoi update
+chezmoi update  # Pull and apply upstream changes
+chezmoi cd      # Open the source directory
+chezmoi diff    # Preview pending changes
+chezmoi apply   # Apply local changes
 ```
 
-Preview local changes before applying:
+| Configuration | Source |
+| --- | --- |
+| System packages | `.chezmoidata/packages.yaml` |
+| Developer tools | `dot_config/mise/config.toml` |
+| Project runtimes | Each project's `mise.toml` |
+| Antidote and tmux checkout | `.chezmoiexternal.toml` |
+| Zsh plugins | `dot_zsh_plugins.txt` |
+| Linux HID permissions | `.chezmoiscripts/run_onchange_after_configure-webhid.sh.tmpl` |
 
-```sh
-chezmoi diff
-chezmoi apply
-```
-
-Edit the managed source repository with:
-
-```sh
-chezmoi cd
-```
-
-Package installation uses a templated `run_onchange_` script, so it only runs
-again when the package declarations or mise tool configuration changes.
-
-## Package ownership
-
-- Bootstrap and system packages (Homebrew on macOS, dnf on Fedora):
-  `.chezmoidata/packages.yaml`
-- Developer tools on both platforms, plus the macOS container toolchain:
-  `dot_config/mise/config.toml`
-- Project language runtimes: the project's `mise.toml`
-- Antidote and the tmux configuration checkout: `.chezmoiexternal.toml`
-- Zsh plugins: `dot_zsh_plugins.txt`
-
-After changing a package declaration, run `chezmoi apply`.
+Setup scripts rerun when their rendered contents change. Run `chezmoi apply` after editing configuration.

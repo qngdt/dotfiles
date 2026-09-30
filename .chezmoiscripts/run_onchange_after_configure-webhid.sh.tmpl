@@ -1,0 +1,24 @@
+{{ if eq .chezmoi.os "linux" -}}
+#!/bin/sh
+
+set -eu
+
+rule_path=/etc/udev/rules.d/70-peripheral-webhid.rules
+rule_tmp=$(mktemp)
+trap 'rm -f "$rule_tmp"' EXIT
+
+cat > "$rule_tmp" <<'EOF'
+# Grant the active local desktop user raw HID access for WebHID configurators.
+# Apply before 73-seat-late.rules so systemd-logind assigns the session ACL.
+SUBSYSTEM=="hidraw", KERNEL=="hidraw*", TAG+="uaccess"
+EOF
+
+if cmp -s "$rule_tmp" "$rule_path"; then
+    exit 0
+fi
+
+sudo install -D -m 0644 "$rule_tmp" "$rule_path"
+sudo udevadm control --reload-rules
+sudo udevadm trigger --subsystem-match=hidraw --action=change
+udevadm settle
+{{ end -}}
