@@ -422,7 +422,6 @@ local servers = {
 	ts_ls = {},
 	gopls = {},
 	ruff = {},
-	ruby_lsp = {},
 	rust_analyzer = {},
 }
 
@@ -463,7 +462,6 @@ require("conform").setup({
 		rust = { "rustfmt" },
 		python = { "ruff" },
 		go = { "gofumpt" },
-		ruby = { "rubocop" },
 	},
 })
 
