@@ -422,7 +422,6 @@ local servers = {
 	ts_ls = {},
 	gopls = {},
 	ruff = {},
-	rust_analyzer = {},
 }
 
 for server_name, server_opts in pairs(servers) do
@@ -459,7 +458,6 @@ require("conform").setup({
 		javascript = { "oxfmt" },
 		typescript = { "oxfmt" },
 		json = { "oxfmt" },
-		rust = { "rustfmt" },
 		python = { "ruff" },
 		go = { "gofumpt" },
 	},
