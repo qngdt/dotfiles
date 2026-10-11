@@ -228,7 +228,6 @@ vim.pack.add({
 	-- LSP
 	"https://github.com/neovim/nvim-lspconfig",
 	-- Other plugins
-	"https://github.com/folke/snacks.nvim",
 	"https://github.com/stevearc/conform.nvim",
 	"https://github.com/sainnhe/gruvbox-material",
 	"https://github.com/nvim-mini/mini.nvim",
@@ -245,135 +244,117 @@ vim.g.gruvbox_material_enable_italic = true
 vim.o.background = "light"
 vim.cmd.colorscheme("gruvbox-material")
 
--- snacks.nvim
-require("snacks").setup({
-	explorer = {},
-	git = {},
-	gitbrowse = {},
-	indent = {},
-	picker = {
-		matcher = {
-			frecency = true,
-			history_bonus = true,
-		},
-		win = {
-			input = {
-				keys = {
-					["<C-d>"] = { "bufdelete", mode = { "n", "i" } },
-					["<C-k>"] = { "preview_scroll_up", mode = { "i", "n" } },
-					["<C-j>"] = { "preview_scroll_down", mode = { "i", "n" } },
-				},
-			},
-		},
-	},
-	statuscolumn = {},
-})
-
--- snacks.nvim keymaps
-vim.keymap.set("n", "<leader>so", function()
-	Snacks.picker.buffers({ layout = { preset = "vscode" } })
-end, { desc = "[S]earch [O]pened Buffers" })
-vim.keymap.set("n", "<leader>sf", function()
-	Snacks.picker.files({ layout = { preset = "vscode" } })
-end, { desc = "[S]earch [F]iles" })
-vim.keymap.set("n", "<leader>sd", function()
-	Snacks.picker.diagnostics()
-end, { desc = "[S]earch [D]iagnostic" })
-vim.keymap.set("n", "<leader>sh", function()
-	Snacks.picker.help()
-end, { desc = "[S]earch [H]elp" })
-vim.keymap.set("n", "<leader>sk", function()
-	Snacks.picker.keymaps()
-end, { desc = "[S]earch [K]keymaps" })
-vim.keymap.set("n", "<leader>sg", function()
-	Snacks.picker.grep()
-end, { desc = "[S]earch [G]rep" })
-vim.keymap.set("n", "<leader>sw", function()
-	Snacks.picker.grep_word()
-end, { desc = "[S]earch [W]ord" })
-vim.keymap.set("n", "<leader>gs", function()
-	Snacks.picker.git_status()
-end, { desc = "[G]it [S]tatus" })
-vim.keymap.set("n", "gd", function()
-	Snacks.picker.lsp_definitions()
-end, { desc = "[G]oto [D]efinition" })
-vim.keymap.set("n", "gD", function()
-	Snacks.picker.lsp_declarations()
-end, { desc = "[G]oto [D]eclaration" })
-vim.keymap.set("n", "grr", function()
-	Snacks.picker.lsp_references()
-end, { desc = "[G]oto [R]eferences", nowait = true })
-vim.keymap.set("n", "gri", function()
-	Snacks.picker.lsp_implementations()
-end, { desc = "[G]oto [I]mplementation" })
-vim.keymap.set("n", "gT", function()
-	Snacks.picker.lsp_type_definitions()
-end, { desc = "Goto [T]ype Definition" })
-vim.keymap.set("n", "<leader>ef", function()
-	Snacks.explorer()
-end, { desc = "[E]xplore [F]iles" })
-vim.keymap.set("n", "<leader>w", function()
-	Snacks.bufdelete()
-end, { desc = "Delete buffer" })
-vim.keymap.set("n", "<leader>gw", function()
-	local lines = vim.fn.systemlist("git worktree list")
-	if vim.v.shell_error ~= 0 then
-		return vim.notify("Not in a git repository", vim.log.levels.ERROR)
-	end
-
-	local items = {}
-	for idx, line in ipairs(lines) do
-		local path, branch = line:match("^(%S+)%s+%S+%s+%[(.-)%]")
-		if path then
-			items[#items + 1] = { idx = idx, text = path, path = path, branch = branch }
-		end
-	end
-
-	table.sort(items, function(a, b)
-		if a.path == vim.fn.getcwd() then
-			return true
-		end
-		if b.path == vim.fn.getcwd() then
-			return false
-		end
-		return a.idx < b.idx
-	end)
-
-	Snacks.picker.pick({
-		title = "Worktrees",
-		items = items,
-		layout = { preset = "vscode" },
-		format = function(item)
-			local current = item.path == vim.fn.getcwd()
+-- Search pickers
+local pick = require("mini.pick")
+pick.setup({
+	mappings = { scroll_up = "<C-k>", scroll_down = "<C-j>" },
+	window = {
+		config = function()
+			local width = math.max(1, math.floor(0.618 * vim.o.columns))
 			return {
-				{ current and "* " or "  ", current and "DiagnosticOk" or "Comment" },
-				{ item.branch, current and "DiagnosticOk" or "Title" },
+				anchor = "NW",
+				width = width,
+				row = 1,
+				col = math.floor(0.5 * (vim.o.columns - width)),
 			}
 		end,
-		confirm = function(picker, item)
-			picker:close()
-			for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-				if vim.api.nvim_buf_is_loaded(buf) and vim.bo[buf].buflisted then
-					vim.api.nvim_buf_delete(buf, { force = true })
-				end
-			end
-			vim.fn.chdir(item.path)
-		end,
-	})
-end, { desc = "Git Worktrees" })
+	},
+})
+local extra = require("mini.extra")
+extra.setup()
 
--- snacks.nvim user commands
-vim.api.nvim_create_user_command("GitBlame", function()
-	Snacks.git.blame_line()
-end, { desc = "Git Blame" })
-vim.api.nvim_create_user_command("GitCopy", function(opts)
-	Snacks.gitbrowse.open({
-		line_start = opts.line1,
-		line_end = opts.line2,
+vim.keymap.set("n", "<leader>so", function()
+	pick.builtin.buffers({}, {
+		mappings = {
+			delete_buffer = {
+				char = "<C-d>",
+				func = function()
+					local matches = pick.get_picker_matches()
+					local item = matches and matches.current
+					if not item then
+						return
+					end
+					MiniBufremove.delete(item.bufnr)
+					local items = vim.tbl_filter(function(buffer)
+						return vim.api.nvim_buf_is_valid(buffer.bufnr) and vim.bo[buffer.bufnr].buflisted
+					end, pick.get_picker_items() or {})
+					pick.set_picker_items(items)
+				end,
+			},
+		},
 	})
-end, { desc = "Git Copy Remote URL", range = true, nargs = "?" })
+end, { desc = "[S]earch [O]pened Buffers" })
+vim.keymap.set("n", "<leader>sf", pick.builtin.files, { desc = "[S]earch [F]iles" })
+vim.keymap.set("n", "<leader>sd", extra.pickers.diagnostic, { desc = "[S]earch [D]iagnostic" })
+vim.keymap.set("n", "<leader>sh", pick.builtin.help, { desc = "[S]earch [H]elp" })
+vim.keymap.set("n", "<leader>sk", extra.pickers.keymaps, { desc = "[S]earch [K]eymaps" })
+vim.keymap.set("n", "<leader>sg", pick.builtin.grep_live, { desc = "[S]earch [G]rep" })
+vim.keymap.set("n", "<leader>sw", function()
+	pick.builtin.grep({ pattern = vim.fn.expand("<cword>"), method = "plain" })
+end, { desc = "[S]earch [W]ord" })
+
+-- Git status includes index changes, working-tree changes, and untracked files.
+-- NUL delimiters preserve spaces and other special characters in file names.
+vim.keymap.set("n", "<leader>gs", function()
+	local root = vim.system({ "git", "rev-parse", "--show-toplevel" }, { text = true }):wait()
+	if root.code ~= 0 then
+		return vim.notify("Not in a git repository", vim.log.levels.WARN)
+	end
+	local cwd = root.stdout:gsub("\n$", "")
+	local result = vim.system({ "git", "status", "--porcelain=v1", "-z", "--untracked-files=all" }, { cwd = cwd })
+		:wait()
+	if result.code ~= 0 then
+		return vim.notify(result.stderr, vim.log.levels.ERROR)
+	end
+
+	local records = vim.split(result.stdout, "\0", { plain = true, trimempty = true })
+	local items, i = {}, 1
+	while i <= #records do
+		local status, path = records[i]:sub(1, 2), records[i]:sub(4)
+		items[#items + 1] = { text = status .. " " .. path, path = cwd .. "/" .. path }
+		-- In -z output, a rename/copy destination is followed by its old path.
+		i = i + (status:find("[RC]") and 2 or 1)
+	end
+	if #items == 0 then
+		return vim.notify("Working tree is clean", vim.log.levels.INFO)
+	end
+	pick.start({
+		source = {
+			name = "Git status",
+			cwd = cwd,
+			items = items,
+			choose = function(item)
+				if vim.fn.filereadable(item.path) == 0 then
+					vim.notify("File is deleted or unavailable: " .. item.path, vim.log.levels.WARN)
+					return true
+				end
+				return pick.default_choose(item)
+			end,
+		},
+	})
+end, { desc = "[G]it [S]tatus" })
+
+for keys, scope in pairs({
+	gd = "definition",
+	gD = "declaration",
+	grr = "references",
+	gri = "implementation",
+	gT = "type_definition",
+}) do
+	vim.keymap.set("n", keys, function()
+		extra.pickers.lsp({ scope = scope })
+	end, { desc = "LSP: " .. scope:gsub("_", " "), nowait = keys == "grr" })
+end
+vim.keymap.set("n", "<leader>w", function()
+	MiniBufremove.delete()
+end, { desc = "Delete buffer" })
 vim.api.nvim_create_user_command("CloseOther", function()
-	Snacks.bufdelete.other()
+	local current = vim.api.nvim_get_current_buf()
+	for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+		if buf ~= current and vim.bo[buf].buflisted then
+			MiniBufremove.delete(buf)
+		end
+	end
 end, { desc = "Close all other buffers" })
 
 -- blink.cmp
@@ -510,6 +491,9 @@ require("mini.ai").setup()
 require("mini.bufremove").setup()
 require("mini.comment").setup()
 require("mini.icons").setup()
+require("mini.indentscope").setup({
+	draw = { animation = require("mini.indentscope").gen_animation.none() },
+})
 require("mini.notify").setup()
 require("mini.pairs").setup()
 require("mini.surround").setup()
@@ -552,17 +536,15 @@ require("mini.files").setup({
 
 local minifiles_toggle = function()
 	if not MiniFiles.close() then
-		MiniFiles.open(vim.api.nvim_buf_get_name(0))
+		local path = vim.api.nvim_buf_get_name(0)
+		if path == "" or not vim.uv.fs_stat(path) then
+			path = vim.fn.getcwd()
+		end
+		MiniFiles.open(path)
 	end
 end
 vim.keymap.set("n", "<leader>fe", minifiles_toggle, { noremap = true, desc = "Toggle [F]ile [E]xplorer" })
-
-vim.api.nvim_create_autocmd("User", {
-	pattern = "MiniFilesActionRename",
-	callback = function(event)
-		Snacks.rename.on_rename_file(event.data.from, event.data.to)
-	end,
-})
+vim.keymap.set("n", "<leader>ef", minifiles_toggle, { noremap = true, desc = "[E]xplore [F]iles" })
 
 -- nvim-treesitter
 require("nvim-treesitter").install({
