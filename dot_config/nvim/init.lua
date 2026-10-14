@@ -74,7 +74,6 @@ vim.opt.shiftwidth = 2
 vim.opt.tabstop = 2
 vim.opt.autoindent = true
 vim.opt.copyindent = true
-vim.opt.breakindent = true
 
 -- Line wrap
 vim.opt.wrap = true
@@ -138,12 +137,6 @@ vim.diagnostic.config({
 })
 vim.keymap.set("n", "<leader>em", vim.diagnostic.open_float, { desc = "Show diagnostic [E]rror [M]essages" })
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setqflist, { desc = "Open diagnostic [Q]uickfix list" })
-
--- Keybinds to make split navigation easier.
-vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
-vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
-vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
-vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 
 -- Tab navigation
 vim.keymap.set("n", "]t", ":tabnext<CR>", { desc = "Move to the next tab", noremap = true, silent = true })
@@ -218,9 +211,8 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.pack.add({
 	-- Completion (needed by nvim-lspconfig for capabilities)
 	{ src = "https://github.com/saghen/blink.cmp", version = vim.version.range(">=0") },
-	-- Mason and helpers (needed by nvim-lspconfig)
+	-- Mason and tool installation
 	"https://github.com/mason-org/mason.nvim",
-	"https://github.com/williamboman/mason-lspconfig.nvim",
 	"https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim",
 	-- Treesitter
 	"https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
@@ -425,9 +417,9 @@ local servers = {
 }
 
 for server_name, server_opts in pairs(servers) do
-	local config = vim.tbl_deep_extend("force", {}, server_opts)
-	config.capabilities = vim.tbl_deep_extend("force", {}, capabilities, config.capabilities or {})
-	vim.lsp.config(server_name, config)
+	vim.lsp.config(server_name, vim.tbl_deep_extend("force", {
+		capabilities = capabilities,
+	}, server_opts))
 end
 vim.lsp.enable(vim.tbl_keys(servers))
 
@@ -483,7 +475,15 @@ vim.api.nvim_create_user_command("FormatEnable", function()
 end, { desc = "Enable autoformat-on-save" })
 
 -- mini.nvim
-require("mini.ai").setup()
+local ai = require("mini.ai")
+ai.setup({
+	-- Use Tree-sitter queries supplied by nvim-treesitter-textobjects.
+	custom_textobjects = {
+		f = ai.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }),
+		a = ai.gen_spec.treesitter({ a = "@parameter.outer", i = "@parameter.inner" }),
+		c = ai.gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }),
+	},
+})
 require("mini.bufremove").setup()
 require("mini.comment").setup()
 require("mini.icons").setup()
@@ -570,69 +570,20 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
--- Incremental selection
-vim.keymap.set("n", "<leader>a", function()
-	local node = vim.treesitter.get_node()
-	if node then
-		local sr, sc, er, ec = node:range()
-		vim.api.nvim_win_set_cursor(0, { sr + 1, sc })
-		vim.cmd("normal! v")
-		vim.api.nvim_win_set_cursor(0, { er + 1, ec - 1 })
-	end
-end, { desc = "Init treesitter selection" })
-vim.keymap.set("v", "<leader>a", function()
-	local node = vim.treesitter.get_node()
-	if node then
-		local parent = node:parent()
-		if parent then
-			local sr, sc, er, ec = parent:range()
-			vim.api.nvim_win_set_cursor(0, { sr + 1, sc })
-			vim.cmd("normal! o")
-			vim.api.nvim_win_set_cursor(0, { er + 1, ec - 1 })
-		end
-	end
-end, { desc = "Increment treesitter selection" })
-vim.keymap.set("v", "<bs>", function()
-	local node = vim.treesitter.get_node()
-	if node then
-		local child = node:child(0)
-		if child then
-			local sr, sc, er, ec = child:range()
-			vim.api.nvim_win_set_cursor(0, { sr + 1, sc })
-			vim.cmd("normal! o")
-			vim.api.nvim_win_set_cursor(0, { er + 1, ec - 1 })
-		end
-	end
-end, { desc = "Decrement treesitter selection" })
+-- Incremental selection (Neovim 0.12+)
+vim.keymap.set({ "n", "x" }, "<leader>a", function()
+	vim.treesitter.select("parent", vim.v.count1)
+end, { desc = "Expand treesitter selection" })
+vim.keymap.set("x", "<bs>", function()
+	vim.treesitter.select("child", vim.v.count1)
+end, { desc = "Shrink treesitter selection" })
 
 -- nvim-treesitter-textobjects
 require("nvim-treesitter-textobjects").setup({
-	select = { lookahead = true },
 	move = { set_jumps = true },
 })
 
-local ts_select = require("nvim-treesitter-textobjects.select")
 local ts_move = require("nvim-treesitter-textobjects.move")
-
--- textobjects: select
-vim.keymap.set({ "x", "o" }, "af", function()
-	ts_select.select_textobject("@function.outer", "textobjects")
-end)
-vim.keymap.set({ "x", "o" }, "if", function()
-	ts_select.select_textobject("@function.inner", "textobjects")
-end)
-vim.keymap.set({ "x", "o" }, "aa", function()
-	ts_select.select_textobject("@parameter.outer", "textobjects")
-end)
-vim.keymap.set({ "x", "o" }, "ia", function()
-	ts_select.select_textobject("@parameter.inner", "textobjects")
-end)
-vim.keymap.set({ "x", "o" }, "ac", function()
-	ts_select.select_textobject("@class.outer", "textobjects")
-end)
-vim.keymap.set({ "x", "o" }, "ic", function()
-	ts_select.select_textobject("@class.inner", "textobjects")
-end)
 
 -- textobjects: move
 vim.keymap.set({ "n", "x", "o" }, "]f", function()
