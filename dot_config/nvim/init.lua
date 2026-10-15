@@ -407,26 +407,25 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 local capabilities = require("blink.cmp").get_lsp_capabilities()
 
+-- Only specify a package name when it differs from the LSP config name.
 local servers = {
-	lua_ls = {},
-	bashls = {},
+	lua_ls = { package = "lua-language-server" },
+	bashls = { package = "bash-language-server" },
 	sqlls = {},
-	ts_ls = {},
+	tsc = {},
 	gopls = {},
 	ruff = {},
 }
 
-for server_name, server_opts in pairs(servers) do
-	vim.lsp.config(server_name, vim.tbl_deep_extend("force", {
+local ensure_installed = { "stylua", "gofumpt", "goimports" }
+
+for name, spec in pairs(servers) do
+	ensure_installed[#ensure_installed + 1] = spec.package or name
+	vim.lsp.config(name, vim.tbl_deep_extend("force", {
 		capabilities = capabilities,
-	}, server_opts))
+	}, spec.opts or {}))
 end
 vim.lsp.enable(vim.tbl_keys(servers))
-
-local formatters = { "stylua", "gofumpt", "goimports" }
-
-local ensure_installed = vim.tbl_keys(servers or {})
-vim.list_extend(ensure_installed, formatters)
 
 require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
