@@ -5,6 +5,7 @@ packages:
       - mise
     casks:
       - ghostty
+      - raycast
   fedora:
     dnf:
       - chezmoi
