@@ -1,0 +1,10 @@
+[Unit]
+Description=Recover EarPods microphone bias after codec resets
+
+[Timer]
+OnBootSec=20s
+OnUnitActiveSec=15s
+AccuracySec=1s
+
+[Install]
+WantedBy=timers.target
