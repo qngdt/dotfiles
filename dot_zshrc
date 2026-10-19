@@ -17,10 +17,13 @@ function zvm_config() {
   ZVM_INIT_MODE=sourcing
   ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
 }
+function _fzf_init() {
+  add-zsh-hook -d precmd _fzf_init
+  source <(fzf --zsh)
+}
 function zvm_after_init() {
-  if (( $+commands[fzf] )); then
-    source <(fzf --zsh)
-  fi
+  autoload -Uz add-zsh-hook
+  add-zsh-hook precmd _fzf_init
 }
 
 # antidote is cloned to ~/.antidote by chezmoi (see .chezmoiexternal.toml)
