@@ -4,6 +4,8 @@ packages:
       - chezmoi
       - mise
     casks:
+      - font-iosevka-nerd-font
+      - font-jetbrains-mono
       - ghostty
       - raycast
   fedora:
