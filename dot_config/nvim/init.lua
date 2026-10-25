@@ -224,7 +224,6 @@ vim.pack.add({
 	"https://github.com/sainnhe/gruvbox-material",
 	"https://github.com/nvim-mini/mini.nvim",
 	"https://github.com/christoomey/vim-tmux-navigator",
-	"https://github.com/sphamba/smear-cursor.nvim",
 })
 
 -- Theme (configure first so colorscheme is set before other plugins render)
@@ -446,11 +445,8 @@ require("conform").setup({
 	end,
 	formatters_by_ft = {
 		lua = { "stylua" },
-		javascript = { "oxfmt" },
-		typescript = { "oxfmt" },
-		json = { "oxfmt" },
 		python = { "ruff" },
-		go = { "gofumpt" },
+		go = { "goimports", "gofumpt" },
 	},
 })
 
@@ -585,42 +581,22 @@ require("nvim-treesitter-textobjects").setup({
 local ts_move = require("nvim-treesitter-textobjects.move")
 
 -- textobjects: move
-vim.keymap.set({ "n", "x", "o" }, "]f", function()
-	ts_move.goto_next_start("@function.outer", "textobjects")
-end)
-vim.keymap.set({ "n", "x", "o" }, "]c", function()
-	ts_move.goto_next_start("@class.outer", "textobjects")
-end)
-vim.keymap.set({ "n", "x", "o" }, "]a", function()
-	ts_move.goto_next_start("@parameter.inner", "textobjects")
-end)
-vim.keymap.set({ "n", "x", "o" }, "]F", function()
-	ts_move.goto_next_end("@function.outer", "textobjects")
-end)
-vim.keymap.set({ "n", "x", "o" }, "]C", function()
-	ts_move.goto_next_end("@class.outer", "textobjects")
-end)
-vim.keymap.set({ "n", "x", "o" }, "]A", function()
-	ts_move.goto_next_end("@parameter.inner", "textobjects")
-end)
-vim.keymap.set({ "n", "x", "o" }, "[f", function()
-	ts_move.goto_previous_start("@function.outer", "textobjects")
-end)
-vim.keymap.set({ "n", "x", "o" }, "[c", function()
-	ts_move.goto_previous_start("@class.outer", "textobjects")
-end)
-vim.keymap.set({ "n", "x", "o" }, "[a", function()
-	ts_move.goto_previous_start("@parameter.inner", "textobjects")
-end)
-vim.keymap.set({ "n", "x", "o" }, "[F", function()
-	ts_move.goto_previous_end("@function.outer", "textobjects")
-end)
-vim.keymap.set({ "n", "x", "o" }, "[C", function()
-	ts_move.goto_previous_end("@class.outer", "textobjects")
-end)
-vim.keymap.set({ "n", "x", "o" }, "[A", function()
-	ts_move.goto_previous_end("@parameter.inner", "textobjects")
-end)
+local movements = {
+	["]"] = { start = "goto_next_start", finish = "goto_next_end" },
+	["["] = { start = "goto_previous_start", finish = "goto_previous_end" },
+}
+local textobjects = { f = "@function.outer", c = "@class.outer", a = "@parameter.inner" }
+for prefix, methods in pairs(movements) do
+	for key, query in pairs(textobjects) do
+		local start, finish, capture = methods.start, methods.finish, query
+		vim.keymap.set({ "n", "x", "o" }, prefix .. key, function()
+			ts_move[start](capture, "textobjects")
+		end)
+		vim.keymap.set({ "n", "x", "o" }, prefix .. key:upper(), function()
+			ts_move[finish](capture, "textobjects")
+		end)
+	end
+end
 
 -- vim-tmux-navigator keymaps (plugin is already loaded; define keys explicitly)
 vim.keymap.set("n", "<c-h>", "<cmd><C-U>TmuxNavigateLeft<cr>")
@@ -628,6 +604,3 @@ vim.keymap.set("n", "<c-j>", "<cmd><C-U>TmuxNavigateDown<cr>")
 vim.keymap.set("n", "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>")
 vim.keymap.set("n", "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>")
 vim.keymap.set("n", "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>")
-
--- smear-cursor.nvim
-require("smear_cursor").setup({})
