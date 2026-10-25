@@ -20,6 +20,7 @@ packages:
       - fcitx5-mozc
       - fcitx5-unikey
       - ffmpeg
+      - jetbrains-mono-fonts-all
       - ncurses
       - podman-docker
       - zsh
