@@ -112,7 +112,7 @@ set -g mouse on
 bind c new-window -a -c "#{pane_current_path}" #!important
 
 # move status line to top
-#set -g status-position top
+set -g status-position top
 
 set-option -g automatic-rename off
 
