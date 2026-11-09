@@ -1,0 +1,62 @@
+onboarding = false
+
+# Theme
+[theme]
+name = "gruvbox"
+
+# Window
+[ui]
+prompt_new_tab_name = false
+pane_gaps = false
+pane_outer_borders = false
+status_indicators = "dots"
+
+[ui.sound]
+enabled = false
+
+# Notifications (Ghostty shows them as desktop notifications)
+[ui.toast]
+delivery = "terminal"
+
+# Sidebar: tab name on its own row so it fits the sidebar width
+[ui.sidebar.agents]
+rows = [["state_icon", "workspace", "agent"], ["tab"]]
+
+# Updates come from mise
+[update]
+version_check = false
+
+# Tmux keybindings (prefix = Ctrl+a, so the Ghostty super+ keybinds also drive herdr)
+[keys]
+prefix = "ctrl+a"
+reload_config = "prefix+r"
+resize_mode = "prefix+shift+r"
+
+# Tabs (tmux windows)
+rename_tab = "prefix+comma"
+close_tab = "prefix+ampersand"
+previous_tab = "prefix+ctrl+p"
+next_tab = "prefix+ctrl+n"
+move_tab_previous = "prefix+<"
+move_tab_next = "prefix+>"
+
+# Splits
+split_vertical = ["prefix+%", "prefix+|"]
+split_horizontal = ["prefix+\"", "prefix+minus"]
+
+# Panes
+swap_pane_left = "prefix+{"
+swap_pane_right = "prefix+}"
+swap_pane_up = ""
+swap_pane_down = ""
+resize_pane_left = "prefix+shift+h"
+resize_pane_down = "prefix+shift+j"
+resize_pane_up = "prefix+shift+k"
+resize_pane_right = "prefix+shift+l"
+
+# Workspaces (tmux sessions)
+goto = "prefix+w"
+workspace_picker = "prefix+ctrl+f"
+new_workspace = "prefix+ctrl+c"
+rename_workspace = "prefix+$"
+detach = "prefix+d"
