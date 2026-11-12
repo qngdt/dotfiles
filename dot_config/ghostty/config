@@ -2,7 +2,6 @@
 macos-titlebar-style = hidden
 window-padding-x = 0
 window-padding-y = 0
-background-opacity = 0.95
 
 # Theme
 theme = Gruvbox Material Dark
