@@ -31,9 +31,15 @@ if [[ -r "$HOME/.antidote/antidote.zsh" ]]; then
   source "$HOME/.antidote/antidote.zsh"
 fi
 
+# Completion style (must be before antidote load)
+zstyle ':plugin:ez-compinit' 'compstyle' 'zshzoo'
+
 if (( $+functions[antidote] )); then
   antidote load
 fi
+
+# Override the zshzoo matcher-list, which writes a stray letter on substring matches
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' '+r:|[._-]=* r:|=*' '+l:|=* r:|=*'
 
 # Language/locale
 export LANG="en_US.UTF-8"
