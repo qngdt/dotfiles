@@ -604,3 +604,8 @@ vim.keymap.set("n", "<c-j>", "<cmd><C-U>TmuxNavigateDown<cr>")
 vim.keymap.set("n", "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>")
 vim.keymap.set("n", "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>")
 vim.keymap.set("n", "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>")
+
+local local_config = vim.fn.stdpath("config") .. "/local.lua"
+if vim.uv.fs_stat(local_config) then
+	dofile(local_config)
+end
