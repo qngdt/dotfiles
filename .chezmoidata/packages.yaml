@@ -24,3 +24,20 @@ packages:
       - ncurses
       - podman-docker
       - zsh
+  ubuntu:
+    apt:
+      # Neovim compiles Tree-sitter parsers with a C compiler, and Mason unpacks zip archives.
+      - build-essential
+      - curl
+      - fcitx5
+      - fcitx5-config-qt
+      - fcitx5-mozc
+      - fcitx5-unikey
+      - ffmpeg
+      - fonts-jetbrains-mono
+      - gawk
+      - git
+      - im-config
+      - podman-docker
+      - unzip
+      - zsh

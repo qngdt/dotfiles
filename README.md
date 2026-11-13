@@ -1,6 +1,6 @@
 # Dotfiles
 
-Shell and development setup for macOS and Fedora, managed with [chezmoi](https://www.chezmoi.io/).
+Shell and development setup for macOS, Fedora and Ubuntu, managed with [chezmoi](https://www.chezmoi.io/).
 
 ## Install
 
@@ -29,7 +29,21 @@ sudo dnf install -y chezmoi git
 chezmoi init --apply https://github.com/qngdt/dotfiles.git
 ```
 
-Uses Podman for Docker-compatible commands. Ghostty requires separate installation.
+### Ubuntu
+
+Ubuntu does not package chezmoi, so this installs it to `~/.local/bin`:
+
+```sh
+sudo apt-get update
+sudo apt-get install -y curl git
+sh -c "$(curl -fsLS get.chezmoi.io)" -- -b ~/.local/bin init --apply https://github.com/qngdt/dotfiles.git
+```
+
+Run `chezmoi upgrade` to update chezmoi.
+
+### Fedora and Ubuntu
+
+Both use Podman for Docker-compatible commands. Ghostty requires separate installation.
 
 After logging out and back in, add **Unikey** (Telex) and **Mozc** in **Fcitx 5 Configuration** for Vietnamese and Japanese input.
 
@@ -37,7 +51,7 @@ WebHID setup grants the active local user and their applications access to all c
 
 ### Set the shell
 
-On either platform, run this and start a new login session:
+On every platform, run this and start a new login session:
 
 ```sh
 zsh_path="$(command -v zsh)"

@@ -20,13 +20,18 @@ cask {{ . | quote }}
 {{ end -}}
 EOF
 {{ else if eq .chezmoi.os "linux" -}}
-if [ ! -r /etc/fedora-release ]; then
-    echo "Automatic package installation is currently supported on Fedora only." >&2
-    exit 0
-fi
-
+{{ if eq .chezmoi.osRelease.id "fedora" -}}
 sudo dnf install -y{{ range .packages.fedora.dnf }} {{ . | quote }}{{ end }}
+{{ else if eq .chezmoi.osRelease.id "ubuntu" -}}
+sudo apt-get update
+sudo apt-get install -y{{ range .packages.ubuntu.apt }} {{ . | quote }}{{ end }}
 
+# Start Fcitx 5 in the desktop session, as fcitx5-autostart does on Fedora.
+im-config -n fcitx5
+{{ else -}}
+echo "Automatic package installation is currently supported on Fedora and Ubuntu only." >&2
+exit 0
+{{ end }}
 if ! command -v mise >/dev/null 2>&1; then
     curl https://mise.run | sh
 fi
